@@ -28,10 +28,34 @@
   font-weight: bold;
   padding-left: 10px;
   padding-right: 5px;  
-  color:  #4bb153 ;
+  color:  var(--green-color) ;
 }
 
 .menu {
   width: 100%;
   height: auto;
 }
+
+.add_list_form .add_list_input {
+  width: 80%;
+  border: 1px solid #ccc;
+  background: #FFF;
+  margin-top: 10px;
+  padding: 5px;
+}
+
+.add_list_form .add_list_input:hover {
+  -webkit-transition: border-color 0.3s ease-in-out;
+  -moz-transition: border-color 0.3s ease-in-out;
+  transition: border-color 0.3s ease-in-out;
+  border: 1px solid #aaa;
+}
+
+.add_list_form .add_list_input:hover {
+  -webkit-transition: border-color 0.3s ease-in-out;
+  -moz-transition: border-color 0.3s ease-in-out;
+  transition: border-color 0.3s ease-in-out;
+  border: 1px solid #aaa;
+}
+
+

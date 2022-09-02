@@ -31,7 +31,7 @@ function App() {
   let tasks = allTasks
     .filter((task) => task.list_id == selectedList)
     .filter((task) => {
-      if (showDone) return task.done == showDone;
+      if (showDone) return task.done != showDone;
       return true;
     });
 
@@ -59,6 +59,10 @@ function App() {
     setTasks(allTasks.filter((task) => task.id != id));
   };
 
+  const handlerAddFilter = (option) => {
+    setView(!showDone)
+  }
+
   return (
     <div className="App">
       <Sidebar lists={lists} onClick={handlerChooseList} onDelete={hadleOnDeleteList} />
@@ -66,7 +70,7 @@ function App() {
         <Content tasks={tasks} onChange={handleDoneChange} onClick={hadleOnDeleteTask} />
         <Form />
       </Container>
-      <Filter />
+      <Filter onClick={handlerAddFilter}/>
     </div>
   );
 }
