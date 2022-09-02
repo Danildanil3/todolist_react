@@ -1,0 +1,8 @@
+.container {
+  flex-basis: 80%;
+  background-color: #fff;
+  flex-shrink: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+}

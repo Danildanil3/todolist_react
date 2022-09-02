@@ -1,0 +1,92 @@
+.filter {
+    position: fixed;
+    bottom: 5%;
+    left: 1%;
+    z-index: 10;
+  }
+  
+  .toggle {
+    --width: 80px;
+    --height: calc(var(--width) / 3);
+  
+    position: relative;
+    display: inline-block;
+    width: var(--width);
+    height: var(--height);
+    box-shadow: 0px 1px 3px rgba(0, 0, 0, 0.3);
+    cursor: pointer;
+  }
+  
+  .toggle input {
+    display: none;
+  }
+  
+  .toggle .labels {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    font-size: 12px;
+    font-family: sans-serif;
+    transition: all 0.4s ease-in-out;
+    overflow: hidden;
+  }
+  
+  .toggle .labels::after,
+  .toggle .labels::before {
+    position: absolute;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    top: 0;
+    height: 100%;
+    width: 100%;
+    transition: all 0.4s ease-in-out;
+  }
+  
+  .toggle .labels::after {
+    content: attr(data-off);
+    left: 0;
+    color: #4d4d4d;
+    background-color: #8c8c8c;
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.4);
+  }
+  
+  .toggle .labels::before {
+    content: attr(data-on);
+    left: calc(var(--width) * -1);
+    color: #ffffff;
+    background-color: #4fe132;
+    text-shadow: 1px 1px 2px rgba(255, 255, 255, 0.4);
+  }
+  
+  .toggle input:checked ~ .labels::after {
+    transform: translateX(var(--width));
+  }
+  
+  .toggle input:checked ~ .labels::before {
+    transform: translateX(var(--width));
+  }
+  
+  .toggle .tiptext {
+    visibility: hidden;
+    width: 120px;
+    background-color: black;
+    color: #fff;
+    text-align: center;
+    border-radius: 6px;
+    padding: 5px 0;
+    position: absolute;
+    z-index: 1;
+    bottom: 120%;
+    left: 50%;
+    margin-left: -60px;
+    font-size: 0.6rem;
+    transition: all 0.2s ease-in-out; /* <----- */
+    pointer-events: none;
+  }
+  
+  .toggle:hover .tiptext {
+    visibility: visible; /* <----- */
+  }
