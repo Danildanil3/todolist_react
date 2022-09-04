@@ -5,10 +5,14 @@
   padding-top: 2%;
   padding-left: 15px;
   padding-right: 15px;
+  overflow-y: scroll;
+  -ms-overflow-style: none;
+  scrollbar-width: none;
   z-index: 1;
 }
 
 .head {
+  position: relative;
   padding-right: 5%;
   padding-left: 10%;
   margin-bottom: 15%;
@@ -36,7 +40,13 @@
   height: auto;
 }
 
+.add_list_form {
+  position: absolute;
+  width: 80%;
+}
+
 .add_list_form .add_list_input {
+  display: inline;
   width: 80%;
   border: 1px solid #ccc;
   background: #FFF;
@@ -44,18 +54,32 @@
   padding: 5px;
 }
 
-.add_list_form .add_list_input:hover {
-  -webkit-transition: border-color 0.3s ease-in-out;
-  -moz-transition: border-color 0.3s ease-in-out;
-  transition: border-color 0.3s ease-in-out;
-  border: 1px solid #aaa;
+.add_list_input {
+  border: 2px solid #e1e5ee;
+  margin-right: 4%;
 }
 
-.add_list_form .add_list_input:hover {
-  -webkit-transition: border-color 0.3s ease-in-out;
-  -moz-transition: border-color 0.3s ease-in-out;
-  transition: border-color 0.3s ease-in-out;
-  border: 1px solid #aaa;
+.add_list_input:hover {
+  border-color: #8AFF8A;
+
 }
 
+.add_list_input:focus {
+  border-color: #00A300;
+}
 
+.add_list_form button {
+  background-color: #4CAF50;
+  border: none;
+  color: white;
+  padding: 5px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: .9rem;  
+  opacity: 0.6;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.add_list_form button:hover {opacity: 1}
