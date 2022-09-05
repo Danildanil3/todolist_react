@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useRef, useState } from "react";
 import "./Task.css";
 import getFormatedDate from "../../../../utils/getFormatedDate";
 import capitalizeFstLtr from "../../../../utils/capitalizeFstLtr";
@@ -7,24 +7,30 @@ import defineTaskClasses from "../../../../utils/defineTaskClasses";
 function Task(props) {
   const popup = useRef();
   let [task, setTask] = useState(props.task);
-  const { onChange, onClick } = props;
+  const { onChange, onDelete, onEdit } = props;
 
-  const handleDoneChange = (event) => {
+  const doneChange = (event) => {
     setTask((t) => ({ ...t, done: !t.done }));
     onChange(task.id);
   };
 
-  const hadleOnDelete = (event) => {
-    onClick(task.id);
+  const deleteTask = (event) => {
+    onDelete(task.id);
   };
 
-  const hadleOnEdit = (event) => {
+  const editTask = (event) => {
+    console.log('Task', task);
+    onEdit(task);
+  };
 
-  }
+  const hideMenu = () => {
+    popup.current.classList.remove("show");
+  };
 
   const togglePopup = () => {
     popup.current.classList.toggle("show");
-  }
+    setTimeout(hideMenu, 5000);
+  };
 
   return (
     <div className={defineTaskClasses(task.done, task.due_date)}>
@@ -34,18 +40,18 @@ function Task(props) {
       </div>
       <div className="task__content">
         <div className="task__title">
-          <input type="checkbox" className="input" defaultChecked={task.done} onChange={handleDoneChange} />
+          <input type="checkbox" className="input" defaultChecked={task.done} onChange={doneChange} />
           <p>{capitalizeFstLtr(task.name)}</p>
         </div>
         <div className="task__desc">
           <p>{task.description}</p>
         </div>
         <div className="cover" onClick={togglePopup}>
-          <div className="popup" >
+          <div className="popup">
             <span className="popupmenu" id="Popup" ref={popup}>
               <ul>
-                <li className="delete" onClick={hadleOnDelete}></li>
-                <li className="edit" onClick={hadleOnEdit}></li>
+                <li className="delete" onClick={deleteTask}></li>
+                <li className="edit" onClick={editTask}></li>
               </ul>
             </span>
           </div>

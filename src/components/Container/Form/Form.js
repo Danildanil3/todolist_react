@@ -1,29 +1,38 @@
-import React, { useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import "./Form.css";
 import AddBtn from "../../ui/AddBtn/Add";
 
-function Form({ list_id, onSubmit }) {
+function Form({ list_id, taskOnEdit, onSubmit }) {
   const form = useRef();
+  const notif = useRef();
   const nameInp = useRef();
   const descInp = useRef();
-  const notif = useRef();
   const [name, setName] = useState("");
   const [description, setDesc] = useState("");
   const [due_date, setDate] = useState("");
   const [done, setDone] = useState(false);
+  const [id, setId] = useState(null);
 
   const handlerToggleForm = (e) => {
     if (form.current.classList.contains("visible")) {
-      form.current.classList.remove("animate");
-      setTimeout(() => {
-        form.current.classList.remove("visible");
-      }, 1200);
+      hideForm();
     } else {
-      form.current.classList.add("visible");
-      setTimeout(() => {
-        form.current.classList.add("animate");
-      }, 50);
+      showForm();
     }
+  };
+
+  const hideForm = () => {
+    form.current.classList.remove("animate");
+    setTimeout(() => {
+      form.current.classList.remove("visible");
+    }, 1200);
+  };
+
+  const showForm = () => {
+    form.current.classList.add("visible");
+    setTimeout(() => {
+      form.current.classList.add("animate");
+    }, 50);
   };
 
   const nameHandler = (event) => {
@@ -48,8 +57,8 @@ function Form({ list_id, onSubmit }) {
 
   const hideNotification = () => {
     notif.current.classList.remove("error");
-    notif.current.classList.remove("close")
-  }
+    notif.current.classList.remove("close");
+  };
 
   const submitHandler = (event) => {
     event.preventDefault();
@@ -62,13 +71,27 @@ function Form({ list_id, onSubmit }) {
       notif.current.classList.add("error");
       setTimeout(hideNotification, 3000);
     } else {
-      onSubmit({ name, description, due_date, list_id, done });
+      onSubmit({ name, description, due_date, list_id, done, id});
       nameInp.current.value = null;
       descInp.current.value = null;
-      setDesc("")
+      setDesc("");
       setName("");
     }
+    hideForm();
   };
+
+  useEffect(() => {
+    if (taskOnEdit) {
+      setName(taskOnEdit.name);
+      setDesc(taskOnEdit.description);
+      setDone(taskOnEdit.done);
+      setDate(taskOnEdit.due_date);
+      setId(taskOnEdit.id)
+      showForm();
+    }
+      console.log('Form',taskOnEdit);
+    
+  }, [taskOnEdit]);
 
   return (
     <>
@@ -110,7 +133,7 @@ function Form({ list_id, onSubmit }) {
         <div className="form__control" id="form__date">
           <input type="date" name="due_date" id="date" value={due_date} onChange={dateHandler} />
           <div className="form__checkbox">
-            <input type="checkbox" name="done" id="form__checkbox" value="true" onChange={doneHandler} />
+            <input type="checkbox" name="done" id="form__checkbox" value={done} onChange={doneHandler} />
             <label htmlFor="form__checkbox">Done</label>
           </div>
         </div>
@@ -119,13 +142,12 @@ function Form({ list_id, onSubmit }) {
           <button type="submit">CREATE</button>
         </div>
       </form>
+
       <AddBtn onClick={handlerToggleForm} />
 
       <div id="notification" ref={notif}>
         <div className="notification__body">
-          <div className="notification-text">
-            Choose list !
-          </div>
+          <div className="notification-text">Choose list !</div>
         </div>
       </div>
     </>

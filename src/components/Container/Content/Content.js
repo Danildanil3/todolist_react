@@ -12,12 +12,16 @@ function Content(props) {
   const hadleOnDelete = (id) => {
     props.onClick(id);
   };
-  // console.log("render content");
+
+  const handleOnEdit = (task) => {
+    console.log('Content', task);
+    props.onEdit(task);
+  };
 
   return (
     <div className="content">
       {tasks.map((t) => (
-        <Task key={t.id} task={t} onChange={handleDoneChange} onClick={hadleOnDelete} />
+        <Task key={t.id} task={t} onChange={handleDoneChange} onDelete={hadleOnDelete} onEdit={handleOnEdit} />
       ))}
     </div>
   );

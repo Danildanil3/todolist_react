@@ -27,6 +27,7 @@ function App() {
 
   let [showDone, setView] = useState(false);
   let [currentList, setCurrentList] = useState(null);
+  let [taskOnEdit, setTaskOnChange] = useState(null);
 
   let tasks = allTasks
     .filter((task) => task.list_id === currentList)
@@ -72,9 +73,16 @@ function App() {
     );
   };
 
-  const onCreateTask = (task) => {
-    task.id = allTasks.length + 1;
-    setTasks((prevState) => [...prevState, task]);
+  const onFormSubmit = (newTask) => {
+    if (newTask.id) {
+      newTask.id = allTasks.length + 1;
+      setTasks((prevState) => [...prevState, newTask]);
+      // do to Edit Task
+      // after first update the second update does not work
+    } else {
+      newTask.id = allTasks.length + 1;
+      setTasks((prevState) => [...prevState, newTask]);
+    }
   };
 
   const onDeleteTask = (id) => {
@@ -85,12 +93,17 @@ function App() {
     setView(!showDone);
   };
 
+  const editTask = (task) => {
+    console.log('App', task);
+    setTaskOnChange(task);
+  };
+
   return (
     <div className="App">
       <Sidebar lists={lists} onClick={chooseList} onDelete={onDeleteList} onSubmit={onCreateList} />
       <Container>
-        <Content tasks={tasks} onChange={toggleTaskDone} onClick={onDeleteTask} />
-        <Form onSubmit={onCreateTask} list_id={currentList} />
+        <Content tasks={tasks} onChange={toggleTaskDone} onClick={onDeleteTask} onEdit={editTask} />
+        <Form onSubmit={onFormSubmit} list_id={currentList} taskOnEdit={taskOnEdit} />
       </Container>
       <Filter onClick={addFilter} />
     </div>
