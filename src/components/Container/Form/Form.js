@@ -5,6 +5,8 @@ import AddBtn from "../../ui/AddBtn/Add";
 function Form({ list_id, onSubmit }) {
   const form = useRef();
   const nameInp = useRef();
+  const descInp = useRef();
+  const notif = useRef();
   const [name, setName] = useState("");
   const [description, setDesc] = useState("");
   const [due_date, setDate] = useState("");
@@ -44,6 +46,11 @@ function Form({ list_id, onSubmit }) {
     setDone((prevState) => !prevState);
   };
 
+  const hideNotification = () => {
+    notif.current.classList.remove("error");
+    notif.current.classList.remove("close")
+  }
+
   const submitHandler = (event) => {
     event.preventDefault();
     if (name.trim() === "") {
@@ -51,8 +58,15 @@ function Form({ list_id, onSubmit }) {
       setTimeout(() => {
         nameInp.current.classList.remove("regected");
       }, 2000);
+    } else if (list_id === null) {
+      notif.current.classList.add("error");
+      setTimeout(hideNotification, 3000);
     } else {
       onSubmit({ name, description, due_date, list_id, done });
+      nameInp.current.value = null;
+      descInp.current.value = null;
+      setDesc("")
+      setName("");
     }
   };
 
@@ -86,6 +100,7 @@ function Form({ list_id, onSubmit }) {
             placeholder=" "
             value={description}
             onChange={descHandler}
+            ref={descInp}
           ></input>
           <label htmlFor="form__desc" className="form__label">
             Desctiption
@@ -105,6 +120,14 @@ function Form({ list_id, onSubmit }) {
         </div>
       </form>
       <AddBtn onClick={handlerToggleForm} />
+
+      <div id="notification" ref={notif}>
+        <div className="notification__body">
+          <div className="notification-text">
+            Choose list !
+          </div>
+        </div>
+      </div>
     </>
   );
 }

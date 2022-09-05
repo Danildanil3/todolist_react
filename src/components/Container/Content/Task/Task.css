@@ -27,7 +27,7 @@
 }
 
 .task .data .calendar {
-  background-image: url('../../../../assets/calendar.svg');
+  background-image: url("../../../../assets/calendar.svg");
   width: 15px;
   height: 15px;
   position: absolute;
@@ -82,15 +82,101 @@
   color: var(--grey-color);
 }
 
-.task .delete{
+.task .cover {
   display: inline-block;
   width: 20px;
   height: 20px;
   position: absolute;
   top: 10px;
   right: 5px;
-  background-image: url('../../../../assets/deleteTask.svg');
+  background-image: url("../../../../assets/edit.svg");
   background-size: cover;
   color: #8c8c8c;
   cursor: pointer;
+}
+
+.popup {
+  position: relative;
+  display: inline-block;
+  cursor: pointer;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  bottom: 100%;
+}
+
+.popup .popupmenu {
+  visibility: hidden;
+  width: 80px;
+  background-color: #d9d9d9;
+  border-radius: 6px;
+  position: absolute;
+  z-index: 1;
+  bottom: 125%;
+  left: 50%;
+  margin-left: -40px;
+  padding: 5px 0;
+}
+
+.popup .popupmenu::after {
+  content: "";
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  margin-left: -5px;
+  border-width: 5px;
+  border-style: solid;
+  border-color: #d9d9d9 transparent transparent transparent;
+}
+
+.popupmenu.show {
+  visibility: visible;
+  -webkit-animation: fadeIn .5s;
+  animation: fadeIn .5s;
+}
+
+#Popup ul {
+  list-style-type: none;
+  display: flex;
+  justify-content: space-around;
+  padding: 0;
+}
+
+#Popup li {
+  display: inline-block;
+}
+.delete,
+.edit {
+  display: inline-block;
+  width: 20px;
+  height: 20px;
+  background-size: cover;
+  cursor: pointer;
+}
+
+.delete {
+  background-image: url("../../../../assets/deleteTask.svg");
+}
+
+.edit {
+  background-image: url("../../../../assets/edit.svg");
+}
+
+@-webkit-keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
 }

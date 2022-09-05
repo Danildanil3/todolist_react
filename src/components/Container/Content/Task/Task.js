@@ -1,10 +1,11 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import "./Task.css";
 import getFormatedDate from "../../../../utils/getFormatedDate";
 import capitalizeFstLtr from "../../../../utils/capitalizeFstLtr";
 import defineTaskClasses from "../../../../utils/defineTaskClasses";
 
 function Task(props) {
+  const popup = useRef();
   let [task, setTask] = useState(props.task);
   const { onChange, onClick } = props;
 
@@ -16,6 +17,14 @@ function Task(props) {
   const hadleOnDelete = (event) => {
     onClick(task.id);
   };
+
+  const hadleOnEdit = (event) => {
+
+  }
+
+  const togglePopup = () => {
+    popup.current.classList.toggle("show");
+  }
 
   return (
     <div className={defineTaskClasses(task.done, task.due_date)}>
@@ -31,7 +40,16 @@ function Task(props) {
         <div className="task__desc">
           <p>{task.description}</p>
         </div>
-        <div className="delete" onClick={hadleOnDelete}></div>
+        <div className="cover" onClick={togglePopup}>
+          <div className="popup" >
+            <span className="popupmenu" id="Popup" ref={popup}>
+              <ul>
+                <li className="delete" onClick={hadleOnDelete}></li>
+                <li className="edit" onClick={hadleOnEdit}></li>
+              </ul>
+            </span>
+          </div>
+        </div>
       </div>
     </div>
   );
