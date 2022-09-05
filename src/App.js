@@ -28,9 +28,6 @@ function App() {
   let [showDone, setView] = useState(false);
   let [currentList, setCurrentList] = useState(null);
 
-  const LOCAL_STORAGE_TODO = "todoApp.todos";
-  const LOCAL_STORAGE_LIST = "todoApp.lists";
-
   let tasks = allTasks
     .filter((task) => task.list_id === currentList)
     .filter((task) => {
@@ -38,21 +35,20 @@ function App() {
       return true;
     });
 
-  // useEffect(() => {
-  //   const storedTodos = JSON.parse(localStorage.getItem(LOCAL_STORAGE_TODO));
-  //   const storedLists = JSON.parse(localStorage.getItem(LOCAL_STORAGE_LIST));
-  //   setTasks(storedTodos);
-  //   setLists(storedLists);
-  // }, []);
+  useEffect(() => {
+    const storedTodos = JSON.parse(localStorage.getItem("tasks"));
+    const storedLists = JSON.parse(localStorage.getItem("lists"));
+    if (storedLists) setLists(storedLists);
+    if (storedTodos) setTasks(storedTodos);
+  }, []);
 
-  // useEffect(() => {
-  //   localStorage.setItem(LOCAL_STORAGE_TODO, JSON.stringify(allTasks));
-  // }, [allTasks]);
+  useEffect(() => {
+    localStorage.setItem("tasks", JSON.stringify(allTasks));
+  }, [allTasks]);
 
-  // useEffect(() => {
-  //   localStorage.setItem(LOCAL_STORAGE_LIST, JSON.stringify(lists));
-  //   console.log(lists);
-  // }, [lists]);
+  useEffect(() => {
+    localStorage.setItem("lists", JSON.stringify(lists));
+  }, [lists]);
 
   const chooseList = (id) => {
     setCurrentList(id);
