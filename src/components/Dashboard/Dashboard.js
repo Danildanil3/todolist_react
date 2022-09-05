@@ -1,12 +1,27 @@
 import React, { useEffect, useRef, useState } from "react";
+import axios from "axios";
+
+import {getAllLists} from "../../hooks/Hook"
 import { v4 as uuidv4 } from "uuid";
-import "./Sidebar.css";
+import "./Dashboard.css";
 import List from "./List/List";
 
-function Sidebar({ lists, onClick, onDelete, onSubmit }) {
+function Dashboard({ onClick, onDelete, onSubmit }) {
+
+  const baseURL = "http://localhost:3000/api/lists";
+  const [lists, setLists] = useState([]);
   const [formDisplay, setDisplay] = useState(false);
   const [listName, setName] = useState("");
   const inputRef = useRef();
+
+
+  useEffect(() => {
+  axios.get(baseURL)
+    .then(response => setLists(response.data))
+    .catch(err => console.error(err));
+  }, []);
+
+
 
   const handlerFormShown = () => {
     setDisplay((prevState) => !prevState);
@@ -16,15 +31,20 @@ function Sidebar({ lists, onClick, onDelete, onSubmit }) {
     onClick(id);
   };
 
-  const handlerDeleteList = (id) => {
-    onDelete(id);
+  const deleteList = (id) => {
+    console.log(`${baseURL}/6`);
+    axios.delete(`${baseURL}/${id}`)
+    .then(_ => console.log(`Task(${id}) was deleted`))
+    .catch(err => console.error(err));
   };
 
-  const handlerOnSubmit = (event) => {
+  const createList = (event) => {
     event.preventDefault();
-    if (listName.trim() !== "") {
+    const name = listName.trim()
+    if (name !== "") {
       handlerFormShown();
-      onSubmit(listName.trim());
+      axios.post(baseURL, {name})
+      .then(res => setLists(prevState => [...prevState, res]))
     }
   };
 
@@ -39,13 +59,11 @@ function Sidebar({ lists, onClick, onDelete, onSubmit }) {
   }, [formDisplay]);
 
   return (
-    <nav className="sidebar">
+    <nav className="dashboard">
       <div className="head">
         <h1>Lists</h1>
-        <div className="add_list" onClick={handlerFormShown}>
-          &#43;
-        </div>
-        <form action="submit" className="add_list_form" onSubmit={handlerOnSubmit} style={formStyle}>
+        <div className="add_list" onClick={handlerFormShown}>&#43;</div>
+        <form action="submit" className="add_list_form" onSubmit={createList} style={formStyle}>
           <input
             type="text"
             value={listName}
@@ -61,11 +79,11 @@ function Sidebar({ lists, onClick, onDelete, onSubmit }) {
       </div>
       <ul className="menu">
         {lists.map((obj) => (
-          <List key={obj.id} list={obj} onClick={handlerChooseList} onDelete={handlerDeleteList} />
+          <List key={obj.id} list={obj} onClick={handlerChooseList} onDelete={deleteList} />
         ))}
       </ul>
     </nav>
   );
 }
 
-export default Sidebar;
+export default Dashboard;
