@@ -1,4 +1,4 @@
-import React, { useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import "./Task.css";
 import getFormatedDate from "../../utils/getFormatedDate";
 import capitalizeFstLtr from "../../utils/capitalizeFstLtr";
@@ -8,11 +8,6 @@ function Task(props) {
   const popup = useRef();
   let [task, setTask] = useState(props.task);
   const { onToggle, onDelete, onEdit } = props;
-
-  const doneChange = (event) => {
-    setTask((t) => ({ ...t, done: !t.done }));
-    onToggle(task);
-  };
 
   const deleteTask = (event) => {
     onDelete(task.id);
@@ -30,6 +25,13 @@ function Task(props) {
     popup.current.classList.toggle("show");
     setTimeout(hideMenu, 5000);
   };
+
+  const doneChange = (event) => setTask((t) => ({ ...t, done: !t.done }));
+
+  useEffect(() => {
+    onToggle(task);
+  }, [task.done])
+
 
   return (
     <div className={defineTaskClasses(task.done, task.due_date)}>

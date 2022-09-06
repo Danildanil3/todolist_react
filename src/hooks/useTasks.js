@@ -5,13 +5,6 @@ import { getTasksAx, createTaskAx, deleteTaskAx, updateTaskAx } from "../axios/a
 function useTasks(endPoint) {
   const [tasks, setTasks] = useState([]);
 
-  useEffect(() => {
-    axios
-      .get(endPoint)
-      .then((res) => setTasks(res.data))
-      .catch((err) => console.error(err));
-  }, []);
-
   const getTasks = async (ep) => {
     const res = await getTasksAx(ep);
     setTasks(res);
@@ -32,6 +25,13 @@ function useTasks(endPoint) {
     const newTasks = tasks.map((obj) => obj.id === task.id ? { ...obj, ...task } : obj);
     setTasks(newTasks);
   };
+
+  useEffect(() => {
+    axios
+      .get(endPoint)
+      .then((res) => setTasks(res.data))
+      .catch((err) => console.error(err));
+  }, []);
 
   return { tasks, getTasks, createTask, updateTask, deleteTask };
 }

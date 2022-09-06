@@ -14,25 +14,15 @@ function Form({ list_id, taskOnEdit, onSubmit }) {
   const [id, setId] = useState(null);
 
   const handlerToggleForm = (e) => {
-    if (form.current.classList.contains("visible")) {
-      hideForm();
-    } else {
-      showForm();
-    }
+    form.current.classList.toggle("animate");
   };
 
   const hideForm = () => {
     form.current.classList.remove("animate");
-    setTimeout(() => {
-      form.current.classList.remove("visible");
-    }, 1200);
   };
 
   const showForm = () => {
-    form.current.classList.add("visible");
-    setTimeout(() => {
-      form.current.classList.add("animate");
-    }, 50);
+    form.current.classList.add("animate");
   };
 
   const nameHandler = (event) => {

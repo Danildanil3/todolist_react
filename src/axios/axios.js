@@ -18,7 +18,7 @@ const createTaskAx = async () => {
 const deleteTaskAx = async (id) => {
   await axios
     .delete(`${baseURL}/${id}`)
-    .then((res) => res.data)
+    .then((res) => console.log('Task was deleted'))
     .catch((err) => console.error("Axios:", err));
 };
 

@@ -1,6 +1,9 @@
 .form {
-  flex-basis: 0;
-  height: 0;
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  height: auto;
+  width: 80%;
   transform: translate(0, 100%);
   background-color: #f9f9f9;
   box-shadow: 0px -5px 5px #888;
@@ -12,10 +15,6 @@
 .form.animate {
   flex-basis: 30%;
   transform: translate(0, 0);
-}
-
-.form.visible {
-  height: auto;
 }
 
 .form__control {
