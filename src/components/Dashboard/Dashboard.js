@@ -5,6 +5,7 @@ import "./Dashboard.css";
 import List from "./List/List";
 
 function Dashboard({ onClick, onDelete, onSubmit }) {
+  const totalCount = document.querySelector(".todayLink");
   const baseURL = "http://localhost:3000/api";
   const [lists, setLists] = useState([]);
   const [listName, setName] = useState("");
@@ -75,7 +76,7 @@ function Dashboard({ onClick, onDelete, onSubmit }) {
           <button type="submit">Push</button>
         </form>
       </div>
-      <Link to="today" className="todayLink">
+      <Link to="today" className="todayLink" data-count={lists.length}>
         Today
       </Link>
       <ul className="menu">

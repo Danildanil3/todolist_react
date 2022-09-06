@@ -13,17 +13,9 @@ function Form({ list_id, taskOnEdit, onSubmit }) {
   const [done, setDone] = useState(false);
   const [id, setId] = useState(null);
 
-  const handlerToggleForm = (e) => {
-    form.current.classList.toggle("animate");
-  };
-
-  const hideForm = () => {
-    form.current.classList.remove("animate");
-  };
-
-  const showForm = () => {
-    form.current.classList.add("animate");
-  };
+  const handlerToggleForm = (e) => form.current.classList.toggle("animate");
+  const hideForm = () => form.current.classList.remove("animate");
+  const showForm = () => form.current.classList.add("animate");
 
   const nameHandler = (event) => {
     event.stopPropagation();
@@ -52,6 +44,7 @@ function Form({ list_id, taskOnEdit, onSubmit }) {
 
   const submitHandler = (event) => {
     event.preventDefault();
+    console.log(list_id);
     if (name.trim() === "") {
       nameInp.current.classList.add("regected");
       setTimeout(() => {
@@ -61,13 +54,13 @@ function Form({ list_id, taskOnEdit, onSubmit }) {
       notif.current.classList.add("error");
       setTimeout(hideNotification, 3000);
     } else {
-      onSubmit({ name, description, due_date, list_id, done, id});
+      // onSubmit({ name, description, due_date, list_id, done, id });
       nameInp.current.value = null;
       descInp.current.value = null;
       setDesc("");
       setName("");
+      hideForm();
     }
-    hideForm();
   };
 
   useEffect(() => {
@@ -76,9 +69,9 @@ function Form({ list_id, taskOnEdit, onSubmit }) {
       setDesc(taskOnEdit.description);
       setDone(taskOnEdit.done);
       setDate(taskOnEdit.due_date);
-      setId(taskOnEdit.id)
+      setId(taskOnEdit.id);
       showForm();
-    }    
+    }
   }, [taskOnEdit]);
 
   return (

@@ -2,12 +2,11 @@ import React, { useEffect } from "react";
 import Content from "../components/Content/Content";
 import Task from "../components/Task/Task";
 import useTasks from "../hooks/useTasks";
-import empty from '../assets/empty.svg'
+import empty from "../assets/empty.svg";
 
 function Today() {
   const baseURL = "http://localhost:3000/api/collection/today";
   const { tasks, getTasks, updateTask, deleteTask } = useTasks(baseURL);
-
 
   const styles = {
     div: {

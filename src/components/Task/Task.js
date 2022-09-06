@@ -8,31 +8,24 @@ import defineTaskClasses from "../../utils/defineTaskClasses";
 function Task(props) {
   const popup = useRef();
   let [task, setTask] = useState(props.task);
-  const { onToggle, onDelete, onEdit, today} = props;
+  const { onToggle, onDelete, onEdit, today } = props;
 
-  const deleteTask = (event) => {
-    onDelete(task.id);
-  };
+  const deleteTask = (e) => onDelete(task.id);
 
-  const editTask = (event) => {
-    onEdit(task);
-  };
+  const editTask = (e) => onEdit(task);
 
-  const hideMenu = () => {
-    popup.current.classList.remove("show");
-  };
+  const hideMenu = () => popup.current.classList.remove("show");
 
   const togglePopup = () => {
     popup.current.classList.toggle("show");
     setTimeout(hideMenu, 5000);
   };
 
-  const doneChange = (event) => setTask((t) => ({ ...t, done: !t.done }));
+  const doneChange = (e) => setTask((t) => ({ ...t, done: !t.done }));
 
   useEffect(() => {
     onToggle(task);
-  }, [task.done])
-
+  }, [task.done]);
 
   return (
     <div className={defineTaskClasses(task.done, task.due_date)}>
@@ -58,9 +51,11 @@ function Task(props) {
             </span>
           </div>
         </div>
-        { today !== undefined &&
-        <Link to={`/todo-list/${task.list_id}`}><div className="listLink">{task.list.name}</div></Link>
-        } 
+        {today !== undefined && (
+          <Link to={`/todo-list/${task.list_id}`}>
+            <div className="listLink">{task.list.name}</div>
+          </Link>
+        )}
       </div>
     </div>
   );

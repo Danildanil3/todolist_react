@@ -128,7 +128,7 @@
 }
 
 #notification {
-  position: fixed;
+  position: absolute;
   display: none;
   background-color: red;
   top: 5%;

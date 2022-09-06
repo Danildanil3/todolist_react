@@ -18,9 +18,9 @@ function List({ list, undone, onClick, onDelete }) {
   if (name.length > 13) name = name.slice(0, 12) + "...";
 
   return (
-    <li className="menu_item" key={list.id} onClick={handlerChooseItem}>
+    <li className="menu_item" key={list.id}>
       <NavLink to={`/todo-list/${list.id}`}>
-        {name}({undone == undefined ? 0 : undone})
+        {name}({undone})
       </NavLink>
       <i className="delete_list" onClick={handlerDeleteList}></i>
     </li>
