@@ -1,13 +1,11 @@
 import React, { useEffect, useRef, useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import axios from "axios";
-import { v4 as uuidv4 } from "uuid";
 import "./Dashboard.css";
 import List from "./List/List";
 
 function Dashboard({ onClick, onDelete, onSubmit }) {
   const baseURL = "http://localhost:3000/api";
-  const navigate = useNavigate();
   const [lists, setLists] = useState([]);
   const [listName, setName] = useState("");
   const [formDisplay, setDisplay] = useState(false);
@@ -15,11 +13,6 @@ function Dashboard({ onClick, onDelete, onSubmit }) {
 
   const showHideForm = () => {
     setDisplay((prevState) => !prevState);
-  };
-
-  const chooseList = (id) => {
-    const selectedList = document.querySelector(`.menu_item:nth-child(${id})`);
-    if (selectedList == null) navigate("/");
   };
 
   const deleteList = (id) => {
@@ -85,7 +78,7 @@ function Dashboard({ onClick, onDelete, onSubmit }) {
       <Link to="today" className="todayLink">Today</Link>
       <ul className="menu">
         {lists.map((obj) => (
-          <List key={obj.id} list={obj} undone={obj.undone} onClick={chooseList} onDelete={deleteList} />
+          <List key={obj.id} list={obj} undone={obj.undone} onDelete={deleteList} />
         ))}
       </ul>
     </nav>
