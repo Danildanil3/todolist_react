@@ -163,6 +163,17 @@
   background-image: url("../../assets/edit.svg");
 }
 
+.listLink {
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  background-color: #262837;
+  border-top-left-radius: 7px;
+  color: #fff;
+  padding: 2px;
+  padding-left: 4px;
+}
+
 @-webkit-keyframes fadeIn {
   from {
     opacity: 0;

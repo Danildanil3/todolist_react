@@ -45,7 +45,7 @@ function List() {
   return (
     <Content>
       {tasks?.map((t) => (
-        <Task key={t.id} task={t} onToggle={onTaskToggle} onDelete={onDeleteTask}/>
+        <Task key={t.id} task={t} onToggle={onTaskToggle} onDelete={onDeleteTask} />
       ))}
       {tasks.length == 0 && (
         <div className="emptyList" style={styles.div}>

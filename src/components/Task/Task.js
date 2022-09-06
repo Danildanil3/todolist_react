@@ -1,4 +1,5 @@
 import React, { useEffect, useRef, useState } from "react";
+import { Link } from "react-router-dom";
 import "./Task.css";
 import getFormatedDate from "../../utils/getFormatedDate";
 import capitalizeFstLtr from "../../utils/capitalizeFstLtr";
@@ -7,7 +8,7 @@ import defineTaskClasses from "../../utils/defineTaskClasses";
 function Task(props) {
   const popup = useRef();
   let [task, setTask] = useState(props.task);
-  const { onToggle, onDelete, onEdit } = props;
+  const { onToggle, onDelete, onEdit, today} = props;
 
   const deleteTask = (event) => {
     onDelete(task.id);
@@ -57,6 +58,9 @@ function Task(props) {
             </span>
           </div>
         </div>
+        { today !== undefined &&
+        <Link to={`/todo-list/${task.list_id}`}><div className="listLink">{task.list.name}</div></Link>
+        } 
       </div>
     </div>
   );
