@@ -5,8 +5,6 @@ import capitalizeFstLtr from "../../../utils/capitalizeFstLtr";
 function List({ list, onClick, onDelete }) {
   const handlerChooseItem = (e) => {
     e.preventDefault();
-    document.querySelectorAll(`.menu_item`).forEach((item) => item.classList.remove("active"));
-    document.querySelector(`.menu_item:nth-child(${list.id})`).classList.add("active");
     onClick(list.id);
   };
 
