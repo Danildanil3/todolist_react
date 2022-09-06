@@ -1,8 +1,9 @@
 .content {
-  flex-basis: 100%;
+  flex-basis: 80%;
   height: 100%;
+  background-color: #fff;
   overflow-y: scroll;
   -ms-overflow-style: none;
   scrollbar-width: none;
-  padding: 50px 35px;
+  position: relative;
 }

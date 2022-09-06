@@ -27,7 +27,7 @@
 }
 
 .task .data .calendar {
-  background-image: url("../../../../assets/calendar.svg");
+  background-image: url("../../../assets/calendar.svg");
   width: 15px;
   height: 15px;
   position: absolute;
@@ -89,7 +89,7 @@
   position: absolute;
   top: 10px;
   right: 5px;
-  background-image: url("../../../../assets/menu.svg");
+  background-image: url("../../../assets/menu.svg");
   background-size: cover;
   color: #8c8c8c;
   cursor: pointer;
@@ -156,11 +156,11 @@
 }
 
 .delete {
-  background-image: url("../../../../assets/deleteTask.svg");
+  background-image: url("../../../assets/deleteTask.svg");
 }
 
 .edit {
-  background-image: url("../../../../assets/edit.svg");
+  background-image: url("../../../assets/edit.svg");
 }
 
 @-webkit-keyframes fadeIn {

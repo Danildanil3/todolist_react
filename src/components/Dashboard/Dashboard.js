@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
 import { v4 as uuidv4 } from "uuid";
 import "./Dashboard.css";
@@ -7,9 +7,10 @@ import List from "./List/List";
 
 function Dashboard({ onClick, onDelete, onSubmit }) {
   const baseURL = "http://localhost:3000/api";
+  const navigate = useNavigate();
   const [lists, setLists] = useState([]);
-  const [formDisplay, setDisplay] = useState(false);
   const [listName, setName] = useState("");
+  const [formDisplay, setDisplay] = useState(false);
   const inputRef = useRef();
 
   const showHideForm = () => {
@@ -18,19 +19,14 @@ function Dashboard({ onClick, onDelete, onSubmit }) {
 
   const chooseList = (id) => {
     const selectedList = document.querySelector(`.menu_item:nth-child(${id})`);
-    // document.querySelectorAll(`.menu_item`).forEach((item) => item.classList.remove("active"));
-    // if (selectedList !== null) {
-    //   document.querySelector(`.menu_item:nth-child(${id})`).classList.add("active");
-    // } else {
-    //   //link to home page
-    // }
+    if (selectedList == null) navigate("/");
   };
 
   const deleteList = (id) => {
     setLists((prevState) => prevState.filter((lst) => lst.id !== id));
     axios
       .delete(`${baseURL}/lists/${id}`)
-      .then((_) => console.log(`Task(${_.data}) was deleted`))
+      .then((_) => console.log(`List(${id}) was deleted`))
       .catch((err) => console.error(err));
   };
 
@@ -66,7 +62,9 @@ function Dashboard({ onClick, onDelete, onSubmit }) {
   return (
     <nav className="dashboard">
       <div className="head">
-        <h1><Link to='/'>List</Link></h1>
+        <h1>
+          <Link to="/">List</Link>
+        </h1>
         <div className="add_list" onClick={showHideForm}>
           &#43;
         </div>
@@ -84,16 +82,14 @@ function Dashboard({ onClick, onDelete, onSubmit }) {
           <button type="submit">Push</button>
         </form>
       </div>
+      <Link to="today" className="todayLink">Today</Link>
       <ul className="menu">
         {lists.map((obj) => (
-        <List key={obj.id} list={obj} undone={obj.undone} onClick={chooseList} onDelete={deleteList} />
+          <List key={obj.id} list={obj} undone={obj.undone} onClick={chooseList} onDelete={deleteList} />
         ))}
-        
       </ul>
     </nav>
   );
 }
 
 export default Dashboard;
-
-{/* */}

@@ -1,11 +1,13 @@
 import React from 'react';
+import Content from '../components/Content/Content';
 
 
 function Home() {
   return (
-    <div>
+    <Content text="ref">
         <h2>Home page</h2>
-    </div>
+
+    </Content>
   );
 }
 export default Home;

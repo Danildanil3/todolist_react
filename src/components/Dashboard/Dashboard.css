@@ -31,8 +31,21 @@
   font-size: 3rem;
   font-weight: bold;
   padding-left: 10px;
-  padding-right: 5px;  
-  color:  var(--green-color) ;
+  padding-right: 5px;
+  color: var(--green-color);
+}
+
+.todayLink {
+  display: inline-block;
+  width: 100%;
+  text-transform: uppercase;
+  border-radius: 3px;
+  text-align: center;
+  padding: 7px;
+  margin-bottom: 30px;
+  font-weight: bold;
+  font-size: 1.3rem;
+  border: 4px dotted black;
 }
 
 .menu {
@@ -49,7 +62,7 @@
   display: inline;
   width: 80%;
   border: 1px solid #ccc;
-  background: #FFF;
+  background: #fff;
   margin-top: 10px;
   padding: 5px;
 }
@@ -60,26 +73,27 @@
 }
 
 .add_list_input:hover {
-  border-color: #8AFF8A;
-
+  border-color: #8aff8a;
 }
 
 .add_list_input:focus {
-  border-color: #00A300;
+  border-color: #00a300;
 }
 
 .add_list_form button {
-  background-color: #4CAF50;
+  background-color: #4caf50;
   border: none;
   color: white;
   padding: 5px;
   text-align: center;
   text-decoration: none;
   display: inline-block;
-  font-size: .9rem;  
+  font-size: 0.9rem;
   opacity: 0.6;
   border-radius: 4px;
   cursor: pointer;
 }
 
-.add_list_form button:hover {opacity: 1}
+.add_list_form button:hover {
+  opacity: 1;
+}

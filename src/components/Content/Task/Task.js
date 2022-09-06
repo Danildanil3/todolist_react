@@ -1,8 +1,8 @@
 import React, { useRef, useState } from "react";
 import "./Task.css";
-import getFormatedDate from "../../../../utils/getFormatedDate";
-import capitalizeFstLtr from "../../../../utils/capitalizeFstLtr";
-import defineTaskClasses from "../../../../utils/defineTaskClasses";
+import getFormatedDate from "../../../utils/getFormatedDate";
+import capitalizeFstLtr from "../../../utils/capitalizeFstLtr";
+import defineTaskClasses from "../../../utils/defineTaskClasses";
 
 function Task(props) {
   const popup = useRef();
