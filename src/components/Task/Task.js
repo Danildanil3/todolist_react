@@ -7,11 +7,11 @@ import defineTaskClasses from "../../utils/defineTaskClasses";
 function Task(props) {
   const popup = useRef();
   let [task, setTask] = useState(props.task);
-  const { onChange, onDelete, onEdit } = props;
+  const { onToggle, onDelete, onEdit } = props;
 
   const doneChange = (event) => {
     setTask((t) => ({ ...t, done: !t.done }));
-    onChange(task.id);
+    onToggle(task);
   };
 
   const deleteTask = (event) => {
@@ -19,7 +19,6 @@ function Task(props) {
   };
 
   const editTask = (event) => {
-    console.log('Task', task);
     onEdit(task);
   };
 

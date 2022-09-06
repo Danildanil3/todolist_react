@@ -14,7 +14,7 @@ function List() {
   const styles = {
     div: {
       position: "relative",
-      "text-align": "center",
+      textAlign: "center",
       position: "absolute",
       left: "50%",
       top: "40%",
@@ -25,10 +25,18 @@ function List() {
       window: "350px",
     },
     text: {
-      "margin-top": "50px",
+      marginTop: "50px",
       color: "#696969",
     },
   };
+
+  const onTaskToggle = (task)=> {
+    updateTask(task);
+  }
+
+  const onDeleteTask = (id) => {
+    deleteTask(id);
+  }
 
   useEffect(() => {
     getTasks(`${baseURL}/${id}?all=true`);
@@ -36,8 +44,8 @@ function List() {
 
   return (
     <Content>
-      {tasks.map((t) => (
-        <Task key={t.id} task={t} />
+      {tasks?.map((t) => (
+        <Task key={t.id} task={t} onToggle={onTaskToggle} onDelete={onDeleteTask}/>
       ))}
       {tasks.length == 0 && (
         <div className="emptyList" style={styles.div}>

@@ -17,14 +17,14 @@ const createTaskAx = async () => {
 
 const deleteTaskAx = async (id) => {
   await axios
-    .delete(`baseURL/${id}`)
+    .delete(`${baseURL}/${id}`)
     .then((res) => res.data)
     .catch((err) => console.error("Axios:", err));
 };
 
 const updateTaskAx = async (id, body) => {
-  return await axios
-    .patch(`baseURL/${id}`, body)
+   await axios
+    .patch(`${baseURL}/${id}`, body)
     .then((res) => res.data)
     .catch((err) => console.error("Axios:", err));
 };

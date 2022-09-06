@@ -27,14 +27,10 @@ function useTasks(endPoint) {
     setTasks((prevState) => [...prevState, res]);
   };
 
-  const updateTask = async (id) => {
-    const res = await updateTaskAx(id);
-    setTasks((prevState) => {
-      prevState.map((obj) => {
-        if (obj.id === id) obj = res;
-        return obj;
-      });
-    });
+  const updateTask = async (task) => {
+    await updateTaskAx(task.id, task);
+    const newTasks = tasks.map((obj) => obj.id === task.id ? { ...obj, ...task } : obj);
+    setTasks(newTasks);
   };
 
   return { tasks, getTasks, createTask, updateTask, deleteTask };
