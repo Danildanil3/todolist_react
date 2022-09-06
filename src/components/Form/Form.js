@@ -78,9 +78,7 @@ function Form({ list_id, taskOnEdit, onSubmit }) {
       setDate(taskOnEdit.due_date);
       setId(taskOnEdit.id)
       showForm();
-    }
-      console.log('Form',taskOnEdit);
-    
+    }    
   }, [taskOnEdit]);
 
   return (

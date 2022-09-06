@@ -1,28 +1,23 @@
-import React, { useState, useEffect } from 'react';
-import Content from '../components/Content/Content';
-import Task from '../components/Task/Task';
-import axios from "axios";
-
-
+import React, { useEffect } from "react";
+import Content from "../components/Content/Content";
+import Task from "../components/Task/Task";
+import useTasks from "../hooks/useTasks";
 
 function Today() {
   const baseURL = "http://localhost:3000/api/collection/today";
-  const [tasks, setTasks] = useState([]);
+  const { tasks, getTasks, updateTask, deleteTask } = useTasks(baseURL);
 
   useEffect(() => {
-    axios
-    .get(baseURL)
-    .then((res) => setTasks(res.data))
-    .catch(err => console.error(err));
+    getTasks(baseURL);
   }, []);
 
-  const onTaskToggle = () => {
-    console.log();
-  }
+  const onTaskToggle = (task) => {
+    updateTask(task);
+  };
 
-  const onDeleteTask = () => {
-    console.log();
-  }
+  const onDeleteTask = (id) => {
+    deleteTask(id);
+  };
 
   return (
     <Content>
@@ -31,5 +26,5 @@ function Today() {
       ))}
     </Content>
   );
-} 
+}
 export default Today;
