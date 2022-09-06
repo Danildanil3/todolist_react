@@ -1,10 +1,9 @@
 import React from "react";
+import { NavLink } from "react-router-dom";
 import "./List.css";
 import capitalizeFstLtr from "../../../utils/capitalizeFstLtr";
-import { NavLink } from "react-router-dom";
 
-
-function List({ list, onClick, onDelete, undone }) {
+function List({ list, undone, onClick, onDelete }) {
   const handlerChooseItem = (e) => {
     e.preventDefault();
     onClick(list.id);
@@ -21,7 +20,7 @@ function List({ list, onClick, onDelete, undone }) {
   return (
     <li className="menu_item" key={list.id} onClick={handlerChooseItem}>
       <NavLink to={`/todo-list/${list.id}`}>
-      {name}({undone == undefined ? 0 : undone})
+        {name}({undone == undefined ? 0 : undone})
       </NavLink>
       <i className="delete_list" onClick={handlerDeleteList}></i>
     </li>

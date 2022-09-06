@@ -1,10 +1,10 @@
 .content {
   flex-basis: 80%;
   height: 100%;
+  position: relative;
+  padding: 0 50px;
   background-color: #fff;
   overflow-y: scroll;
   -ms-overflow-style: none;
   scrollbar-width: none;
-  position: relative;
-  padding: 0 50px;
 }

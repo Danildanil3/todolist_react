@@ -1,5 +1,5 @@
 import axios from "axios";
-import React, { useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { getTasksAx, createTaskAx, deleteTaskAx, updateTaskAx } from "../axios/axios";
 
 function useTasks(endPoint) {
@@ -22,7 +22,7 @@ function useTasks(endPoint) {
 
   const updateTask = async (task) => {
     await updateTaskAx(task.id, task);
-    const newTasks = tasks.map((obj) => obj.id === task.id ? { ...obj, ...task } : obj);
+    const newTasks = tasks.map((obj) => (obj.id === task.id ? { ...obj, ...task } : obj));
     setTasks(newTasks);
   };
 

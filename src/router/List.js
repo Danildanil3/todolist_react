@@ -1,13 +1,17 @@
-import React, { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
-import axios from "axios";
+import React, { useEffect } from "react";
+import { useParams, useNavigate } from "react-router-dom";
 import Content from "../components/Content/Content";
 import Task from "../components/Task/Task";
 import uncle from "../assets/uncle.png";
 import useTasks from "../hooks/useTasks";
 
 function List() {
-  const { id } = useParams();
+  let { id } = useParams();
+  const navigate = useNavigate();
+
+  id = parseInt(id);
+  if (isNaN(id)) navigate("*");
+
   const baseURL = "http://localhost:3000/api/lists";
   const { tasks, getTasks, createTask, updateTask, deleteTask } = useTasks(`${baseURL}/${id}?all=true`);
 
@@ -30,13 +34,13 @@ function List() {
     },
   };
 
-  const onTaskToggle = (task)=> {
+  const onTaskToggle = (task) => {
     updateTask(task);
-  }
+  };
 
   const onDeleteTask = (id) => {
     deleteTask(id);
-  }
+  };
 
   useEffect(() => {
     getTasks(`${baseURL}/${id}?all=true`);

@@ -75,10 +75,12 @@ function Dashboard({ onClick, onDelete, onSubmit }) {
           <button type="submit">Push</button>
         </form>
       </div>
-      <Link to="today" className="todayLink">Today</Link>
+      <Link to="today" className="todayLink">
+        Today
+      </Link>
       <ul className="menu">
-        {lists.map((obj) => (
-          <List key={obj.id} list={obj} undone={obj.undone} onDelete={deleteList} />
+        {lists.map((list) => (
+          <List key={list.id} list={list} undone={list.undone} onDelete={deleteList} />
         ))}
       </ul>
     </nav>
