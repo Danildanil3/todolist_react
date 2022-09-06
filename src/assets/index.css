@@ -14,6 +14,11 @@
   padding: 0;
 }
 
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
 html {
   font-family: "Roboto", sans-serif;
   font-style: normal;

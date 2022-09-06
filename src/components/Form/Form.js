@@ -1,6 +1,6 @@
 import React, { useEffect, useRef, useState } from "react";
 import "./Form.css";
-import AddBtn from "../../ui/AddBtn/Add";
+import AddBtn from "../ui/AddBtn/Add";
 
 function Form({ list_id, taskOnEdit, onSubmit }) {
   const form = useRef();

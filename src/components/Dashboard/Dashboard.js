@@ -1,13 +1,12 @@
 import React, { useEffect, useRef, useState } from "react";
+import { Link } from "react-router-dom";
 import axios from "axios";
-
-import { getAllLists } from "../../hooks/Hook";
 import { v4 as uuidv4 } from "uuid";
 import "./Dashboard.css";
 import List from "./List/List";
 
 function Dashboard({ onClick, onDelete, onSubmit }) {
-  const baseURL = "http://localhost:3000/api/lists";
+  const baseURL = "http://localhost:3000/api";
   const [lists, setLists] = useState([]);
   const [formDisplay, setDisplay] = useState(false);
   const [listName, setName] = useState("");
@@ -19,18 +18,18 @@ function Dashboard({ onClick, onDelete, onSubmit }) {
 
   const chooseList = (id) => {
     const selectedList = document.querySelector(`.menu_item:nth-child(${id})`);
-    document.querySelectorAll(`.menu_item`).forEach((item) => item.classList.remove("active"));
-    if (selectedList !== null) {
-      document.querySelector(`.menu_item:nth-child(${id})`).classList.add("active");
-    } else {
-      //link to home page
-    }
+    // document.querySelectorAll(`.menu_item`).forEach((item) => item.classList.remove("active"));
+    // if (selectedList !== null) {
+    //   document.querySelector(`.menu_item:nth-child(${id})`).classList.add("active");
+    // } else {
+    //   //link to home page
+    // }
   };
 
   const deleteList = (id) => {
     setLists((prevState) => prevState.filter((lst) => lst.id !== id));
     axios
-      .delete(`${baseURL}/${id}`)
+      .delete(`${baseURL}/lists/${id}`)
       .then((_) => console.log(`Task(${_.data}) was deleted`))
       .catch((err) => console.error(err));
   };
@@ -41,7 +40,7 @@ function Dashboard({ onClick, onDelete, onSubmit }) {
     if (name !== "") {
       showHideForm();
       axios
-        .post(baseURL, { name })
+        .post(`${baseURL}/lists`, { name })
         .then((res) => setLists((prevState) => [...prevState, res.data]))
         .catch((err) => console.error(err));
     }
@@ -53,7 +52,7 @@ function Dashboard({ onClick, onDelete, onSubmit }) {
 
   useEffect(() => {
     axios
-      .get(baseURL)
+      .get(`${baseURL}/dashboard`)
       .then((response) => setLists(response.data))
       .catch((err) => console.error(err));
   }, []);
@@ -67,7 +66,7 @@ function Dashboard({ onClick, onDelete, onSubmit }) {
   return (
     <nav className="dashboard">
       <div className="head">
-        <h1>Lists</h1>
+        <h1><Link to='/'>List</Link></h1>
         <div className="add_list" onClick={showHideForm}>
           &#43;
         </div>
@@ -87,11 +86,14 @@ function Dashboard({ onClick, onDelete, onSubmit }) {
       </div>
       <ul className="menu">
         {lists.map((obj) => (
-          <List key={obj.id} list={obj} onClick={chooseList} onDelete={deleteList} />
+        <List key={obj.id} list={obj} undone={obj.undone} onClick={chooseList} onDelete={deleteList} />
         ))}
+        
       </ul>
     </nav>
   );
 }
 
 export default Dashboard;
+
+{/* */}
