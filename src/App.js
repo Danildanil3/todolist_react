@@ -7,7 +7,7 @@ function App() {
   return (
     <div className="App">
       <Dashboard />
-      <Form/>
+      <Form />
       <Outlet />
     </div>
   );
