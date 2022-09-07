@@ -31,9 +31,9 @@ const updateTaskAx = async (id, body) => {
     .catch((err) => console.error("Axios:", err));
 };
 
-const getListsAx = async () => {
+const getListsAx = async (endPoint = baseLURL) => {
   return await axios
-    .get(baseLURL)
+    .get(endPoint)
     .then((res) => res.data)
     .catch((err) => console.error("Axios:", err));
 };

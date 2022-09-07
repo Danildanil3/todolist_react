@@ -1,12 +1,11 @@
-import axios from "axios";
 import { useEffect, useState } from "react";
 import { getListsAx, createListAx, deleteListAx  } from "../axios/axios";
 
-function useTasks(endPoint) {
+function useLists() {
   const [lists, setLists] = useState([]);
 
-  const getLists = async () => {
-    const res = await getListsAx();
+  const getLists = async (endPoint) => {
+    const res = await getListsAx(endPoint);
     setLists(res);
   };
 
@@ -28,4 +27,4 @@ function useTasks(endPoint) {
   return { lists, getLists, createList, deleteList };
 }
 
-export default useTasks;
+export default useLists;

@@ -1,13 +1,14 @@
 import React, { useEffect, useRef, useState } from "react";
+import useLists from "../../hooks/useLists"
 import { Link } from "react-router-dom";
 import axios from "axios";
 import "./Dashboard.css";
 import List from "./List/List";
 
 function Dashboard({ onClick, onDelete, onSubmit }) {
-  const totalCount = document.querySelector(".todayLink");
   const baseURL = "http://localhost:3000/api";
   const [lists, setLists] = useState([]);
+  // const { lists, getLists, createList, deleteList } = useLists();
   const [listName, setName] = useState("");
   const [formDisplay, setDisplay] = useState(false);
   const inputRef = useRef();
