@@ -10,9 +10,9 @@ const getTasksAx = async (endPoint) => {
     .catch((err) => console.error("Axios:", err));
 };
 
-const createTaskAx = async () => {
+const createTaskAx = async (task) => {
   return await axios
-    .post(baseTURL)
+    .post(baseTURL, task)
     .then((res) => res.data)
     .catch((err) => console.error("Axios:", err));
 };
@@ -31,16 +31,16 @@ const updateTaskAx = async (id, body) => {
     .catch((err) => console.error("Axios:", err));
 };
 
-const getListsAx = async (endPoint = baseLURL) => {
+const getListsAx = async () => {
   return await axios
-    .get(endPoint)
+    .get("http://localhost:3000/api/dashboard")
     .then((res) => res.data)
     .catch((err) => console.error("Axios:", err));
 };
 
-const createListAx = async () => {
+const createListAx = async (list) => {
   return await axios
-    .post(baseLURL)
+    .post(baseLURL, list)
     .then((res) => res.data)
     .catch((err) => console.error("Axios:", err));
 };

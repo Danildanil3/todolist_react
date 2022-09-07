@@ -15,9 +15,9 @@ function useTasks(endPoint) {
     setTasks((prevState) => prevState.filter((t) => t.id !== id));
   };
 
-  const createTask = async () => {
-    const res = await createTaskAx();
-    setTasks((prevState) => [...prevState, res]);
+  const createTask = async (task) => {
+    const res = await createTaskAx(task);
+    setTasks((prevState) => [...prevState, res.data]);
   };
 
   const updateTask = async (task) => {
@@ -27,10 +27,7 @@ function useTasks(endPoint) {
   };
 
   useEffect(() => {
-    axios
-      .get(endPoint)
-      .then((res) => setTasks(res.data))
-      .catch((err) => console.error(err));
+    getTasksAx(endPoint).then((res) => setTasks(res));
   }, []);
 
   return { tasks, getTasks, createTask, updateTask, deleteTask };

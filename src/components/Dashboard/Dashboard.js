@@ -1,51 +1,33 @@
 import React, { useEffect, useRef, useState } from "react";
-import useLists from "../../hooks/useLists"
+import useLists from "../../hooks/useLists";
 import { Link } from "react-router-dom";
-import axios from "axios";
 import "./Dashboard.css";
 import List from "./List/List";
 
-function Dashboard({ onClick, onDelete, onSubmit }) {
-  const baseURL = "http://localhost:3000/api";
-  const [lists, setLists] = useState([]);
-  // const { lists, getLists, createList, deleteList } = useLists();
+function Dashboard(props) {
+  const { lists, getLists, createList, deleteList } = useLists();
   const [listName, setName] = useState("");
   const [formDisplay, setDisplay] = useState(false);
   const inputRef = useRef();
-
-  const showHideForm = () => {
-    setDisplay((prevState) => !prevState);
-  };
-
-  const deleteList = (id) => {
-    setLists((prevState) => prevState.filter((lst) => lst.id !== id));
-    axios
-      .delete(`${baseURL}/lists/${id}`)
-      .then((_) => console.log(`List(${id}) was deleted`))
-      .catch((err) => console.error(err));
-  };
-
-  const createList = (event) => {
-    event.preventDefault();
-    const name = listName.trim();
-    if (name !== "") {
-      showHideForm();
-      axios
-        .post(`${baseURL}/lists`, { name })
-        .then((res) => setLists((prevState) => [...prevState, res.data]))
-        .catch((err) => console.error(err));
-    }
-  };
 
   const formStyle = {
     display: formDisplay ? "block" : "none",
   };
 
+  const showHideForm = () => setDisplay((prevState) => !prevState);
+  const deleteL = (id) => deleteList(id);
+
+  const create = (e) => {
+    e.preventDefault();
+    const name = listName.trim();
+    if (name !== "") {
+      showHideForm();
+      createList({ name });
+    }
+  };
+
   useEffect(() => {
-    axios
-      .get(`${baseURL}/dashboard`)
-      .then((response) => setLists(response.data))
-      .catch((err) => console.error(err));
+    getLists();
   }, []);
 
   useEffect(() => {
@@ -63,7 +45,7 @@ function Dashboard({ onClick, onDelete, onSubmit }) {
         <div className="add_list" onClick={showHideForm}>
           &#43;
         </div>
-        <form action="submit" className="add_list_form" onSubmit={createList} style={formStyle}>
+        <form action="submit" className="add_list_form" onSubmit={create} style={formStyle}>
           <input
             type="text"
             value={listName}
@@ -81,8 +63,8 @@ function Dashboard({ onClick, onDelete, onSubmit }) {
         Today
       </Link>
       <ul className="menu">
-        {lists.map((list) => (
-          <List key={list.id} list={list} undone={list.undone} onDelete={deleteList} />
+        {lists?.map((list) => (
+          <List key={list.id} list={list} undone={list.undone} onDelete={deleteL} />
         ))}
       </ul>
     </nav>
