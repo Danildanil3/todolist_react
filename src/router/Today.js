@@ -31,13 +31,8 @@ function Today() {
     getTasks(baseURL);
   }, []);
 
-  const onTaskToggle = (task) => {
-    updateTask(task);
-  };
-
-  const onDeleteTask = (id) => {
-    deleteTask(id);
-  };
+  const onTaskToggle = (task) => updateTask(task);
+  const onDeleteTask = (id) => deleteTask(id);
 
   return (
     <Content>

@@ -59,11 +59,11 @@ function Dashboard(props) {
           <button type="submit">Push</button>
         </form>
       </div>
-      <Link to="today" className="todayLink" data-count={lists.length}>
+      <Link to="today" className="todayLink" data-count={lists.today}>
         Today
       </Link>
       <ul className="menu">
-        {lists?.map((list) => (
+        {lists.lists?.map((list) => (
           <List key={list.id} list={list} undone={list.undone} onDelete={deleteL} />
         ))}
       </ul>

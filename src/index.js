@@ -12,16 +12,16 @@ import "./assets/index.css";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
-  <Provider store={store}>
-    <BrowserRouter>
-      <Routes>
-        <Route element={<App />}>
-          <Route index element={<Home />} />
-          <Route path="today" element={<Today />} />
-          <Route path="todo-list/:id" element={<List />} />
-          <Route path="*" element={<NotFound />} />
-        </Route>
-      </Routes>
-    </BrowserRouter>
-  </Provider>
+  // <Provider store={store}>
+  <BrowserRouter>
+    <Routes>
+      <Route element={<App />}>
+        <Route index element={<Home />} />
+        <Route path="today" element={<Today />} />
+        <Route path="todo-list/:id" element={<List />} />
+        <Route path="*" element={<NotFound />} />
+      </Route>
+    </Routes>
+  </BrowserRouter>
+  // </Provider>
 );

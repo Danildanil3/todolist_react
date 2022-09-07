@@ -7,7 +7,8 @@ import defineTaskClasses from "../../utils/defineTaskClasses";
 
 function Task(props) {
   const popup = useRef();
-  let [task, setTask] = useState(props.task);
+  const [task, setTask] = useState(props.task);
+  const [checked, setChecked] = useState(!task.done);
   const { onToggle, onDelete, onEdit, today } = props;
 
   const deleteTask = (e) => onDelete(task.id);
@@ -21,14 +22,11 @@ function Task(props) {
     setTimeout(hideMenu, 5000);
   };
 
-  // const doneChange = (e) => setTask((t) => ({ ...t, done: !t.done }));
   const doneChange = useCallback(() => {
+    setChecked(!checked);
+    onToggle({ id: task.id, name: task.name, description: task.description, done: checked, due_date: task.due_date });
     setTask((t) => ({ ...t, done: !t.done }));
-  }, [task]);
-
-  useEffect(() => {
-    onToggle(task);
-  }, [task.done]);
+  }, [checked]);
 
   return (
     <div className={defineTaskClasses(task.done, task.due_date)}>
