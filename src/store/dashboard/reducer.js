@@ -1,14 +1,20 @@
 import { DASHBOARD_LOADED } from "./actions";
+import { createStore, applyMiddleware, combineReducers, compose } from "redux";
 
 function openedTasksReducer(state = {}, action) {
-  // ...
+  if (action.type === DASHBOARD_LOADED) {
+    let lists = action.payload.lists.map((list) => [list.id, Number(list.undone)]);
+    return Object.fromEntries(lists);
+  } else {
+    return state;
+  }
 }
 
-// export default combineReducers({
-//   today: (today = 0, { type, payload }) => (type === DASHBOARD_LOADED ? payload.today : today),
-//   lists: (lists = [], { type, payload }) => (type === DASHBOARD_LOADED ? payload.lists : lists),
-//   openedTasks: openedTasksReducer,
-// });
+export default combineReducers({
+  today: (today = 0, { type, payload }) => (type === DASHBOARD_LOADED ? payload.today : today),
+  lists: (lists = [], { type, payload }) => (type === DASHBOARD_LOADED ? payload.lists : lists),
+  openedTasks: openedTasksReducer,
+});
 
 // const dashboardReducer = (state = {}, action) => {
 //     switch (action.type) {
