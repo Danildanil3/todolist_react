@@ -1,5 +1,7 @@
 import axios from "axios";
-const baseURL = "http://localhost:3000/api/tasks";
+const baseTURL = "http://localhost:3000/api/tasks";
+const baseLURL = "http://localhost:3000/api/lists";
+
 
 const getTasksAx = async (endPoint) => {
   return await axios
@@ -10,23 +12,44 @@ const getTasksAx = async (endPoint) => {
 
 const createTaskAx = async () => {
   return await axios
-    .post(baseURL)
+    .post(baseTURL)
     .then((res) => res.data)
     .catch((err) => console.error("Axios:", err));
 };
 
 const deleteTaskAx = async (id) => {
   await axios
-    .delete(`${baseURL}/${id}`)
-    .then((res) => console.log('Task was deleted'))
+    .delete(`${baseTURL}/${id}`)
+    .then((_) => console.log('Task was deleted'))
     .catch((err) => console.error("Axios:", err));
 };
 
 const updateTaskAx = async (id, body) => {
    await axios
-    .patch(`${baseURL}/${id}`, body)
+    .patch(`${baseTURL}/${id}`, body)
     .then((res) => res.data)
     .catch((err) => console.error("Axios:", err));
 };
 
-export { getTasksAx, createTaskAx, deleteTaskAx, updateTaskAx };
+const getListsAx = async () => {
+  return await axios
+    .get(baseLURL)
+    .then((res) => res.data)
+    .catch((err) => console.error("Axios:", err));
+};
+
+const createListAx = async () => {
+  return await axios
+    .post(baseLURL)
+    .then((res) => res.data)
+    .catch((err) => console.error("Axios:", err));
+};
+
+const deleteListAx = async (id) => {
+  await axios
+    .delete(`${baseLURL}/${id}`)
+    .then((_) => console.log('List was deleted'))
+    .catch((err) => console.error("Axios:", err));
+};
+
+export { getTasksAx, createTaskAx, deleteTaskAx, updateTaskAx, getListsAx, createListAx, deleteListAx };

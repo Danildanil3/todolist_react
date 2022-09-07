@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useEffect, useRef, useState, useCallback } from "react";
 import { Link } from "react-router-dom";
 import "./Task.css";
 import getFormatedDate from "../../utils/getFormatedDate";
@@ -21,7 +21,10 @@ function Task(props) {
     setTimeout(hideMenu, 5000);
   };
 
-  const doneChange = (e) => setTask((t) => ({ ...t, done: !t.done }));
+  // const doneChange = (e) => setTask((t) => ({ ...t, done: !t.done }));
+  const doneChange = useCallback(() => {
+    setTask((t) => ({ ...t, done: !t.done }));
+  }, [task]);
 
   useEffect(() => {
     onToggle(task);
