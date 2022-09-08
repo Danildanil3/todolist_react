@@ -1,4 +1,5 @@
 import axios from "axios";
+
 const baseTURL = "http://localhost:3000/api/tasks";
 const baseLURL = "http://localhost:3000/api/lists";
 
@@ -30,7 +31,7 @@ const deleteTaskAx = async (id) => {
     .catch((err) => console.error("Axios delete task:", err));
 };
 
-const getListsAx = async () => {
+const getDashboardAx = async () => {
   return await axios
     .get("http://localhost:3000/api/dashboard")
     .then((res) => res.data)
@@ -58,4 +59,4 @@ const deleteListAx = async (id) => {
     .catch((err) => console.error("Axios delete list:", err));
 };
 
-export { getTasksAx, createTaskAx, deleteTaskAx, updateTaskAx, getListsAx, getListAx, createListAx, deleteListAx };
+export { getTasksAx, createTaskAx, deleteTaskAx, updateTaskAx, getDashboardAx, getListAx, createListAx, deleteListAx };

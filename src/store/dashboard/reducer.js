@@ -1,12 +1,12 @@
-import { getListsAx, createListAx, deleteListAx} from "../../axios/axios";
+import { getDashboardAx, createListAx, deleteListAx } from "../../axios/axios";
 import { combineReducers } from "redux";
 
 const Actions = {
-  DASHBOARD_LOADED : "DASHBOARD_LOADED",
+  DASHBOARD_LOADED: "DASHBOARD_LOADED",
   ADD_LIST: "ADD_LIST",
   DELETE_LIST: "DELETE_LIST",
-  SET_TODAY: "SET_TODAY"
-}
+  SET_TODAY: "SET_TODAY",
+};
 
 function openedTasksReducer(state = {}, action) {
   switch (action.type) {
@@ -31,10 +31,10 @@ function todayReducer(state = 0, { type, payload }) {
   }
 }
 
-function listsReducer(state = [], { type, payload, newList, listid}) {
+function listsReducer(state = [], { type, payload, newList, listid }) {
   switch (type) {
     case Actions.DASHBOARD_LOADED:
-      return payload.lists.map(list => ({id : list.id, name : list.name}));
+      return payload.lists.map((list) => ({ id: list.id, name: list.name }));
     case Actions.ADD_LIST:
       return [...state, ...newList];
     case Actions.DELETE_LIST:
@@ -47,7 +47,7 @@ function listsReducer(state = [], { type, payload, newList, listid}) {
 //------------------ACTIONS-------------------
 
 export const loadDashboardAction = (dispatch) => {
-  getListsAx().then((dashboard) =>
+  getDashboardAx().then((dashboard) =>
     dispatch({
       type: Actions.DASHBOARD_LOADED,
       payload: dashboard,
@@ -73,7 +73,7 @@ export const deleteListAction = (listid) => (dispatch) => {
   );
 };
 
-export const setTodayAction = (payload) => ({type: Actions.SET_TODAY, payload});
+export const setTodayAction = (payload) => ({ type: Actions.SET_TODAY, payload });
 
 //--------------------------------------------------
 
@@ -82,4 +82,3 @@ export default combineReducers({
   lists: listsReducer,
   openedTasks: openedTasksReducer,
 });
-
