@@ -3,10 +3,13 @@ import thunk from "redux-thunk";
 
 import dashboardReducer from "./dashboard/reducer";
 import tasksReducer from "./tasks/reducer";
+import filterReducer from "./filter/reducer";
+
 
 const rootReducer = combineReducers({
   dashboard: dashboardReducer,
   tasks: tasksReducer,
+  filterOut: filterReducer
 });
 
 const enhancers = [

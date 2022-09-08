@@ -5,11 +5,10 @@ import empty from "../assets/empty.svg";
 
 function Today() {
   const baseURL = "http://localhost:3000/api/collection/today";
-  const { tasks, getTasks, updateTask, deleteTask } = useTasks(baseURL);
+  const { tasks, getTasks, updateTask, deleteTask } = useTasks();
 
   const styles = {
     div: {
-      position: "relative",
       textAlign: "center",
       position: "absolute",
       left: "50%",

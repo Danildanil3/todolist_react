@@ -3,6 +3,7 @@ import { Outlet } from "react-router-dom";
 import Dashboard from "../src/components/Dashboard/Dashboard";
 import Content from "./components/Content/Content";
 import Form from "../src/components/Form/Form";
+import Filter from "./components/ui/Filter/Filter";
 
 function App() {
   return (
@@ -12,6 +13,7 @@ function App() {
       <Content>
         <Outlet />
       </Content>
+      <Filter/>
     </div>
   );
 }

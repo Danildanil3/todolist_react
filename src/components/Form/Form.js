@@ -1,17 +1,21 @@
 import React, { useEffect, useRef, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import "./Form.css";
 import AddBtn from "../ui/AddBtn/Add";
 
 function Form({ list_id, taskOnEdit, onSubmit }) {
   const form = useRef();
-  const notif = useRef();
   const nameInp = useRef();
   const descInp = useRef();
+  
   const [name, setName] = useState("");
   const [description, setDesc] = useState("");
   const [due_date, setDate] = useState("");
   const [done, setDone] = useState(false);
+  const [listid, setList] = useState(null);
   const [id, setId] = useState(null);
+
+  const lists = useSelector((state) => state.dashboard.lists);
 
   const handlerToggleForm = (e) => form.current.classList.toggle("animate");
   const hideForm = () => form.current.classList.remove("animate");
@@ -37,10 +41,14 @@ function Form({ list_id, taskOnEdit, onSubmit }) {
     setDone((prevState) => !prevState);
   };
 
-  const hideNotification = () => {
-    notif.current.classList.remove("error");
-    notif.current.classList.remove("close");
-  };
+  const onSelectList = (event) => {
+    console.log(event.target.value);
+  }
+
+  // const hideNotification = () => {
+  //   notif.current.classList.remove("error");
+  //   notif.current.classList.remove("close");
+  // };
 
   const submitHandler = (event) => {
     event.preventDefault();
@@ -51,8 +59,8 @@ function Form({ list_id, taskOnEdit, onSubmit }) {
         nameInp.current.classList.remove("regected");
       }, 2000);
     } else if (list_id === null) {
-      notif.current.classList.add("error");
-      setTimeout(hideNotification, 3000);
+      // notif.current.classList.add("error");
+      // setTimeout(hideNotification, 3000);
     } else {
       // onSubmit({ name, description, due_date, list_id, done, id });
       nameInp.current.value = null;
@@ -113,10 +121,12 @@ function Form({ list_id, taskOnEdit, onSubmit }) {
 
         <div className="form__control" id="form__date">
           <input type="date" name="due_date" id="date" value={due_date} onChange={dateHandler} />
-          <div className="form__checkbox">
-            <input type="checkbox" name="done" id="form__checkbox" value={done} onChange={doneHandler} />
-            <label htmlFor="form__checkbox">Done</label>
-          </div>
+          <select name="list_id" className="selectList" onChange={onSelectList} value={1}>
+          <option value={1} disabled>Choose list</option>
+            {lists.map((list) => (
+              <option key={list.id} value={list.id}>{list.name}</option>
+            ))}
+          </select>
         </div>
 
         <div className="form__btn">
@@ -125,12 +135,6 @@ function Form({ list_id, taskOnEdit, onSubmit }) {
       </form>
 
       <AddBtn onClick={handlerToggleForm} />
-
-      <div id="notification" ref={notif}>
-        <div className="notification__body">
-          <div className="notification-text">Choose list !</div>
-        </div>
-      </div>
     </>
   );
 }

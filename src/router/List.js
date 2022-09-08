@@ -44,14 +44,12 @@ function List() {
   useEffect(() => {
     getTasks();
   }, [id]);
-  console.log(tasks);
 
   return (
     <>
-      {tasks.map((t) => (
-        <Task key={t.id} task={t} onToggle={onTaskToggle} onDelete={onDeleteTask} />
-      ))}
-      {tasks.length == 0 && (
+      {tasks.length !== 0 ? (
+        tasks.map((t) => <Task key={t.id} task={t} onToggle={onTaskToggle} onDelete={onDeleteTask} />)
+      ) : (
         <div className="emptyList" style={styles.div}>
           <img alt="Empty list" src={uncle} style={styles.img} />
           <h1 style={styles.text}>Hurry up ! Сreate a task for yourself</h1>

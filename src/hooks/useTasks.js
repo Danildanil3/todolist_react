@@ -1,7 +1,5 @@
-import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { getTasksAx, createTaskAx, deleteTaskAx, updateTaskAx } from "../axios/axios";
-import { loadTasksAction, deleteTaskAction } from "../store/tasks/reducer";
+import { loadTasksAction, deleteTaskAction, updateTaskAction, createTaskAction } from "../store/tasks/reducer";
 
 function useTasks(id) {
   const dispatch = useDispatch();
@@ -11,19 +9,16 @@ function useTasks(id) {
     dispatch(loadTasksAction(id));
   };
 
-  const deleteTask = async (task) => {
+  const deleteTask = (task) => {
     dispatch(deleteTaskAction(task));
   };
 
-  const createTask = async (task) => {
-    // const res = await createTaskAx(task);
-    // setTasks((prevState) => [...prevState, res.data]);
+  const createTask = (task) => {
+    dispatch(createTaskAction(task));
   };
 
-  const updateTask = async (task) => {
-    // await updateTaskAx(task.id, task);
-    // const newTasks = tasks.map((obj) => (obj.id === task.id ? { ...obj, ...task } : obj));
-    // setTasks(newTasks);
+  const updateTask = (task) => {
+    dispatch(updateTaskAction(task));
   };
 
   return { tasks, getTasks, createTask, updateTask, deleteTask };

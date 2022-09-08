@@ -34,7 +34,7 @@ function todayReducer(state = 0, { type, payload }) {
 function listsReducer(state = [], { type, payload, newList, listid}) {
   switch (type) {
     case Actions.DASHBOARD_LOADED:
-      return payload.lists;
+      return payload.lists.map(list => ({id : list.id, name : list.name}));
     case Actions.ADD_LIST:
       return [...state, ...newList];
     case Actions.DELETE_LIST:
