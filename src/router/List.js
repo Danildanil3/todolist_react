@@ -37,16 +37,15 @@ function List() {
     updateTask(task);
   };
 
-  const onDeleteTask = (id) => {
-    deleteTask(id);
+  const onDeleteTask = (task) => {
+    deleteTask(task);
   };
 
   useEffect(() => {
-    console.log('list:', id);
     getTasks();
   }, [id]);
-
   console.log(tasks);
+
   return (
     <>
       {tasks.map((t) => (

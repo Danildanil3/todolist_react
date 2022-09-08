@@ -9,16 +9,17 @@ const Actions = {
   DELETE_TASK: "DELETE_TASK",
 };
 
-export default function listsReducer(state = {}, { type, tasks, task, listId }) {
+export default function listsReducer(state = {}, { type, tasks, task, list_id }) {
   switch (type) {
     case Actions.TASKS_LOADED:
-      return { ...state, [listId]: tasks };
+      return { ...state, [list_id]: tasks };
     case Actions.ADD_TASK:
-      return { ...state, [task.listId]: [...state.task.listId, ...task] };
+      return { ...state, [task.list_id]: [...state.task.listId, ...task] };
     case Actions.UPDATE_TASK:
-      return { ...state, [task.listId]: [state.task.listId.map((t) => (t.id === task.id ? { ...t, ...task } : t))] };
+      return { ...state, [task.list_id]: [state.task.listId.map((t) => (t.id === task.id ? { ...t, ...task } : t))] };
     case Actions.DELETE_TASK:
-        return { ...state, [task.listId]: [state.task.listId.filter(t => t.id !== task.id)] };
+      // console.log({ ...state, [task.list_id]: [state[task.list_id].filter(t => t.id !== task.id)] });
+    return { ...state, [task.list_id]: [state[task.list_id].filter(t => t.id !== task.id)] };
     default:
       return state;
   }
@@ -26,12 +27,11 @@ export default function listsReducer(state = {}, { type, tasks, task, listId }) 
 
 //------------------ACTIONS-------------------
 
-export const loadTasksAction = (listId) => (dispatch) => {
-  console.log('reducer:', listId);
-  getListAx(`${baseURL}${listId}?all=true`).then((tasks) =>
+export const loadTasksAction = (list_id) => (dispatch) => {
+  getListAx(`${baseURL}${list_id}?all=true`).then((tasks) =>
     dispatch({
       type: Actions.TASKS_LOADED,
-      listId,
+      list_id,
       tasks,
     })
   );
@@ -56,6 +56,8 @@ export const updateTaskAction = (task) => (dispatch) => {
 };
 
 export const deleteTaskAction = (task) => (dispatch) => {
+  console.log(task);
+  // dispatch({ type: Actions.DELETE_TASK, task,});
   deleteTaskAx(task.id).then((_) =>
     dispatch({
       type: Actions.DELETE_TASK,

@@ -1,7 +1,7 @@
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { getTasksAx, createTaskAx, deleteTaskAx, updateTaskAx } from "../axios/axios";
-import { loadTasksAction } from "../store/tasks/reducer";
+import { loadTasksAction, deleteTaskAction } from "../store/tasks/reducer";
 
 function useTasks(id) {
   const dispatch = useDispatch();
@@ -11,9 +11,8 @@ function useTasks(id) {
     dispatch(loadTasksAction(id));
   };
 
-  const deleteTask = async (id) => {
-    // await deleteTaskAx(id);
-    // setTasks((prevState) => prevState.filter((t) => t.id !== id));
+  const deleteTask = async (task) => {
+    dispatch(deleteTaskAction(task));
   };
 
   const createTask = async (task) => {

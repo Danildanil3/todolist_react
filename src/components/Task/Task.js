@@ -9,9 +9,10 @@ function Task(props) {
   const popup = useRef();
   const [task, setTask] = useState(props.task);
   const [checked, setChecked] = useState(!task.done);
+  const [timer, setTimer] = useState(false);
   const { onToggle, onDelete, onEdit, today } = props;
 
-  const deleteTask = (e) => onDelete(task.id);
+  const deleteTask = (e) => onDelete(task);
 
   const editTask = (e) => onEdit(task);
 
@@ -19,7 +20,7 @@ function Task(props) {
 
   const togglePopup = () => {
     popup.current.classList.toggle("show");
-    setTimeout(hideMenu, 5000);
+    setTimer(!timer);
   };
 
   const doneChange = useCallback(() => {
@@ -27,6 +28,11 @@ function Task(props) {
     onToggle({ id: task.id, name: task.name, description: task.description, done: checked, due_date: task.due_date });
     setTask((t) => ({ ...t, done: !t.done }));
   }, [checked]);
+
+  useEffect(()=> {
+    const timeout = setTimeout(hideMenu, 5000);
+    return () => clearTimeout(timeout);
+  },[timer])
 
   return (
     <div className={defineTaskClasses(task.done, task.due_date)}>

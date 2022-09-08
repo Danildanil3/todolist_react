@@ -38,7 +38,6 @@ const getListsAx = async () => {
 };
 
 const getListAx = async (ep) => {
-  console.log('axios:', ep);
   return await axios
     .get(ep)
     .then((res) => res.data)
