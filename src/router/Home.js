@@ -4,7 +4,6 @@ import welcome from "../assets/welcome.png";
 function Home() {
   const styles = {
     div: {
-      position: "relative",
       textAlign: "center",
       position: "absolute",
       left: "50%",

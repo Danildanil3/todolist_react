@@ -3,16 +3,18 @@ import { useDispatch, useSelector } from "react-redux";
 import "./Form.css";
 import AddBtn from "../ui/AddBtn/Add";
 
-function Form({ list_id, taskOnEdit, onSubmit }) {
+function Form({ taskOnEdit, onSubmit }) {
   const form = useRef();
   const nameInp = useRef();
   const descInp = useRef();
-  
+  const dateInp = useRef();
+  const listInp = useRef();
+
   const [name, setName] = useState("");
   const [description, setDesc] = useState("");
   const [due_date, setDate] = useState("");
   const [done, setDone] = useState(false);
-  const [listid, setList] = useState(null);
+  const [list_id, setList] = useState(0);
   const [id, setId] = useState(null);
 
   const lists = useSelector((state) => state.dashboard.lists);
@@ -43,12 +45,8 @@ function Form({ list_id, taskOnEdit, onSubmit }) {
 
   const onSelectList = (event) => {
     console.log(event.target.value);
-  }
-
-  // const hideNotification = () => {
-  //   notif.current.classList.remove("error");
-  //   notif.current.classList.remove("close");
-  // };
+    setList(event.target.value);
+  };
 
   const submitHandler = (event) => {
     event.preventDefault();
@@ -58,13 +56,13 @@ function Form({ list_id, taskOnEdit, onSubmit }) {
       setTimeout(() => {
         nameInp.current.classList.remove("regected");
       }, 2000);
-    } else if (list_id === null) {
-      // notif.current.classList.add("error");
-      // setTimeout(hideNotification, 3000);
+    } else if (list_id === 0) {
+      alert("choose list");
     } else {
       // onSubmit({ name, description, due_date, list_id, done, id });
-      nameInp.current.value = null;
-      descInp.current.value = null;
+      console.log({ name, description, due_date, list_id, done, id });
+      setList(0);
+      setDate("")
       setDesc("");
       setName("");
       hideForm();
@@ -120,11 +118,15 @@ function Form({ list_id, taskOnEdit, onSubmit }) {
         </div>
 
         <div className="form__control" id="form__date">
-          <input type="date" name="due_date" id="date" value={due_date} onChange={dateHandler} />
-          <select name="list_id" className="selectList" onChange={onSelectList} value={1}>
-          <option value={1} disabled>Choose list</option>
+          <input type="date" name="due_date" id="date" value={due_date} onChange={dateHandler} ref={dateInp}/>
+          <select name="list_id" className="selectList" onChange={onSelectList} value={list_id} defaultValue={1} ref={listInp}>
+            <option value={0} disabled>
+              Choose list
+            </option>
             {lists.map((list) => (
-              <option key={list.id} value={list.id}>{list.name}</option>
+              <option key={list.id} value={list.id}>
+                {list.name}
+              </option>
             ))}
           </select>
         </div>

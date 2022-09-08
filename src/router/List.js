@@ -11,12 +11,10 @@ function List() {
   id = parseInt(id);
   if (isNaN(id)) navigate("*");
 
-  const baseURL = "http://localhost:3000/api/lists";
   const { tasks, getTasks, createTask, updateTask, deleteTask } = useTasks(id);
 
   const styles = {
     div: {
-      position: "relative",
       textAlign: "center",
       position: "absolute",
       left: "50%",

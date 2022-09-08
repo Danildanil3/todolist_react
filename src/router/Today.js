@@ -38,7 +38,7 @@ function Today() {
         <Task key={t.id} task={t} onToggle={onTaskToggle} onDelete={onDeleteTask} today />
       ))}
 
-      {tasks.length == 0 && (
+      {tasks.length === 0 && (
         <div style={styles.div}>
           <img alt="No tasks" src={empty} style={styles.img} />
           <h1 style={styles.text}>No tasks for today</h1>

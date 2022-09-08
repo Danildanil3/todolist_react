@@ -4,7 +4,6 @@ import error from "../assets/error.svg";
 function NotFound() {
   const styles = {
     div: {
-      position: "relative",
       textAlign: "center",
       position: "absolute",
       left: "50%",
