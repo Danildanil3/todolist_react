@@ -31,7 +31,7 @@ function todayReducer(state = 0, { type, payload }) {
 function listsReducer(state = [], { type, payload }) {
   switch (type) {
     case DASHBOARD_LOADED:
-      return payload.today;
+      return payload.lists;
     case ADD_LIST:
       return [...state, payload];
     case DELETE_LIST:

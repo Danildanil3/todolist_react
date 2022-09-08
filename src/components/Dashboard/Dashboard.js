@@ -1,10 +1,13 @@
 import React, { useEffect, useRef, useState } from "react";
-import useLists from "../../hooks/useLists";
+import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
+import useLists from "../../hooks/useLists";
 import "./Dashboard.css";
 import List from "./List/List";
 
 function Dashboard(props) {
+  const dispatch = useDispatch();
+  const listsR = useSelector((state) => state.lists);
   const { lists, getLists, createList, deleteList } = useLists();
   const [listName, setName] = useState("");
   const [formDisplay, setDisplay] = useState(false);
@@ -63,8 +66,8 @@ function Dashboard(props) {
         Today
       </Link>
       <ul className="menu">
-        {lists.lists?.map((list) => (
-          <List key={list.id} list={list} undone={list.undone} onDelete={deleteL} />
+        {listsR.map((list) => (
+          <List key={list.id} list={list} onDelete={deleteL} />
         ))}
       </ul>
     </nav>
