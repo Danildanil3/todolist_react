@@ -1,6 +1,5 @@
 import React, { useEffect } from "react";
 import { useParams, useNavigate } from "react-router-dom";
-import Content from "../components/Content/Content";
 import Task from "../components/Task/Task";
 import uncle from "../assets/uncle.png";
 import useTasks from "../hooks/useTasks";
@@ -13,7 +12,7 @@ function List() {
   if (isNaN(id)) navigate("*");
 
   const baseURL = "http://localhost:3000/api/lists";
-  const { tasks, getTasks, createTask, updateTask, deleteTask } = useTasks(`${baseURL}/${id}?all=true`);
+  const { tasks, getTasks, createTask, updateTask, deleteTask } = useTasks(id);
 
   const styles = {
     div: {
@@ -43,12 +42,14 @@ function List() {
   };
 
   useEffect(() => {
-    getTasks(`${baseURL}/${id}?all=true`);
+    console.log('list:', id);
+    getTasks();
   }, [id]);
 
+  console.log(tasks);
   return (
-    <Content>
-      {tasks?.map((t) => (
+    <>
+      {tasks.map((t) => (
         <Task key={t.id} task={t} onToggle={onTaskToggle} onDelete={onDeleteTask} />
       ))}
       {tasks.length == 0 && (
@@ -57,7 +58,7 @@ function List() {
           <h1 style={styles.text}>Hurry up ! Сreate a task for yourself</h1>
         </div>
       )}
-    </Content>
+    </>
   );
 }
 export default List;

@@ -1,29 +1,24 @@
-import { useEffect, useState } from "react";
-import { getListsAx, createListAx, deleteListAx } from "../axios/axios";
+import { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import {addListAction, loadDashboardAction, deleteListAction} from "../store/dashboard/reducer"
 
 function useLists() {
-  const [lists, setLists] = useState([]);
+  const dispatch = useDispatch();
+  const lists = useSelector((state) => state.dashboard.lists);
 
-  const getLists = async () => {
-    const res = await getListsAx();
-    setLists(res);
+  const deleteList = (id) => {
+    dispatch(deleteListAction(id));
   };
 
-  const deleteList = async (id) => {
-    await deleteListAx(id);
-    setLists((prevState) => prevState.filter((l) => l.id !== id));
-  };
-
-  const createList = async (list) => {
-    const res = await createListAx(list);
-    setLists((prevState) => [...prevState, res]);
+  const createList = (list) => {
+    dispatch(addListAction(list));
   };
 
   useEffect(() => {
-    getListsAx().then((res) => setLists(res));
+    dispatch(loadDashboardAction)
   }, []);
 
-  return { lists, getLists, createList, deleteList };
+  return { lists, createList, deleteList };
 }
 
 export default useLists;

@@ -1,5 +1,4 @@
 import React from "react";
-import Content from "../components/Content/Content";
 import error from "../assets/error.svg";
 
 function NotFound() {
@@ -23,12 +22,10 @@ function NotFound() {
   };
 
   return (
-    <Content>
       <div style={styles.div}>
         <img alt="Not Found" src={error} style={styles.img} />
         <h1 style={styles.text}>Can not find that page: "{window.location.pathname}"</h1>
       </div>
-    </Content>
   );
 }
 export default NotFound;

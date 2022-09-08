@@ -1,14 +1,13 @@
 import React, { useEffect, useRef, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import useLists from "../../hooks/useLists";
 import "./Dashboard.css";
 import List from "./List/List";
 
 function Dashboard(props) {
-  const dispatch = useDispatch();
-  const listsR = useSelector((state) => state.lists);
-  const { lists, getLists, createList, deleteList } = useLists();
+  const count = useSelector(store => store.dashboard.today)
+  const { lists, createList, deleteList } = useLists();
   const [listName, setName] = useState("");
   const [formDisplay, setDisplay] = useState(false);
   const inputRef = useRef();
@@ -18,7 +17,8 @@ function Dashboard(props) {
   };
 
   const showHideForm = () => setDisplay((prevState) => !prevState);
-  const deleteL = (id) => deleteList(id);
+
+  const handlerDeleteList = (id) => deleteList(id);
 
   const create = (e) => {
     e.preventDefault();
@@ -28,10 +28,6 @@ function Dashboard(props) {
       createList({ name });
     }
   };
-
-  useEffect(() => {
-    getLists();
-  }, []);
 
   useEffect(() => {
     inputRef.current.focus();
@@ -62,12 +58,12 @@ function Dashboard(props) {
           <button type="submit">Push</button>
         </form>
       </div>
-      <Link to="today" className="todayLink" data-count={lists.today}>
+      <Link to="today" className="todayLink" data-count={count}>
         Today
       </Link>
       <ul className="menu">
-        {listsR.map((list) => (
-          <List key={list.id} list={list} onDelete={deleteL} />
+        {lists.map((list) => (
+          <List key={list.id} list={list} onDelete={handlerDeleteList} />
         ))}
       </ul>
     </nav>

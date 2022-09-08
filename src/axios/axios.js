@@ -16,13 +16,6 @@ const createTaskAx = async (task) => {
     .catch((err) => console.error("Axios create task:", err));
 };
 
-const deleteTaskAx = async (id) => {
-  await axios
-    .delete(`${baseTURL}/${id}`)
-    .then((_) => console.log("Task was deleted"))
-    .catch((err) => console.error("Axios delete task:", err));
-};
-
 const updateTaskAx = async (id, body) => {
   await axios
     .patch(`${baseTURL}/${id}`, body)
@@ -30,9 +23,24 @@ const updateTaskAx = async (id, body) => {
     .catch((err) => console.error("Axios update task:", err));
 };
 
+const deleteTaskAx = async (id) => {
+  await axios
+    .delete(`${baseTURL}/${id}`)
+    .then((_) => console.log("Task was deleted"))
+    .catch((err) => console.error("Axios delete task:", err));
+};
+
 const getListsAx = async () => {
   return await axios
     .get("http://localhost:3000/api/dashboard")
+    .then((res) => res.data)
+    .catch((err) => console.error("Axios get dashboard:", err));
+};
+
+const getListAx = async (ep) => {
+  console.log('axios:', ep);
+  return await axios
+    .get(ep)
     .then((res) => res.data)
     .catch((err) => console.error("Axios get list:", err));
 };
@@ -51,4 +59,4 @@ const deleteListAx = async (id) => {
     .catch((err) => console.error("Axios delete list:", err));
 };
 
-export { getTasksAx, createTaskAx, deleteTaskAx, updateTaskAx, getListsAx, createListAx, deleteListAx };
+export { getTasksAx, createTaskAx, deleteTaskAx, updateTaskAx, getListsAx, getListAx, createListAx, deleteListAx };

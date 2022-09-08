@@ -1,8 +1,5 @@
 import React from "react";
-import { useDispatch, useSelector } from "react-redux";
-import Content from "../components/Content/Content";
 import welcome from "../assets/welcome.png";
-import { loadDashboard } from "../store/dashboard/actions";
 
 function Home() {
   const styles = {
@@ -20,18 +17,10 @@ function Home() {
     },
   };
 
-  const dispatch = useDispatch();
-
-  const handler = () => {
-    dispatch(loadDashboard);
-  };
-
   return (
-    <Content text="ref">
       <div style={styles.div}>
-        <img alt="Home page" src={welcome} style={styles.img} onClick={handler} />
+        <img alt="Home page" src={welcome} style={styles.img} />
       </div>
-    </Content>
   );
 }
 export default Home;

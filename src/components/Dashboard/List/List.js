@@ -5,7 +5,7 @@ import "./List.css";
 import capitalizeFstLtr from "../../../utils/capitalizeFstLtr";
 
 function List({ list, onClick, onDelete }) {
-  const undoneR = useSelector((state) => state.openedTasks);
+  const undone = useSelector((state) => state.dashboard.openedTasks);
 
   const handlerChooseItem = (e) => {
     e.preventDefault();
@@ -16,14 +16,14 @@ function List({ list, onClick, onDelete }) {
     e.preventDefault();
     onDelete(list.id);
   };
-
+  
   let name = capitalizeFstLtr(list.name);
   if (name.length > 13) name = name.slice(0, 12) + "...";
 
   return (
     <li className="menu_item" key={list.id}>
       <NavLink to={`/todo-list/${list.id}`}>
-        {name}({undoneR[list.id]})
+        {name}({undone[list.id]})
       </NavLink>
       <i className="delete_list" onClick={handlerDeleteList}></i>
     </li>

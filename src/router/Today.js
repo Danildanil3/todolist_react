@@ -1,5 +1,4 @@
 import React, { useEffect } from "react";
-import Content from "../components/Content/Content";
 import Task from "../components/Task/Task";
 import useTasks from "../hooks/useTasks";
 import empty from "../assets/empty.svg";
@@ -35,7 +34,7 @@ function Today() {
   const onDeleteTask = (id) => deleteTask(id);
 
   return (
-    <Content>
+    <>
       {tasks?.map((t) => (
         <Task key={t.id} task={t} onToggle={onTaskToggle} onDelete={onDeleteTask} today />
       ))}
@@ -46,7 +45,7 @@ function Today() {
           <h1 style={styles.text}>No tasks for today</h1>
         </div>
       )}
-    </Content>
+    </>
   );
 }
 export default Today;
