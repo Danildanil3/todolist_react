@@ -11,7 +11,7 @@ function List() {
   id = parseInt(id);
   if (isNaN(id)) navigate("*");
 
-  const { tasks, getTasks, createTask, updateTask, deleteTask } = useTasks(id);
+  const { tasks, getTasks, updateTask, deleteTask } = useTasks(id);
 
   const styles = {
     div: {
