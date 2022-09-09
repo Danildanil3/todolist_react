@@ -7,19 +7,19 @@ import { createSelector } from "reselect";
 function useTasks(id) {
   const dispatch = useDispatch();
 
-  // const tasks = createSelector(
-  //   [selectAllTasks, selectFilterOut],
-  //   (allTasks, filter) => {
-  //     console.log(allTasks);
-  //     if (!filter) {
-  //       return allTasks
-  //     } else {
-  //       return allTasks[id]
-  //     }
-  //   }
-  // )
+  const filtedTasks = createSelector(
+    [selectAllTasks, selectFilterOut],
+    (allTasks, filter) => {
+      console.log("ALL",allTasks);
+      if (filter) {
+        return allTasks[id]?.filter(task => task.done !== true)
+      } else {
+        return allTasks[id]
+      }
+    }
+  )
   
-  const tasks = useSelector((state) => state.tasks[id] || []);
+  const tasks = useSelector(filtedTasks);
 
   const getTasks = () => {
     dispatch(loadTasksAction(id));

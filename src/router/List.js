@@ -45,8 +45,8 @@ function List() {
 
   return (
     <>
-      {tasks.length !== 0 ? (
-        tasks.map((t) => <Task key={t.id} task={t} onToggle={onTaskToggle} onDelete={onDeleteTask} />)
+      {tasks?.length !== 0 ? (
+        tasks?.map((t) => <Task key={t.id} task={t} onToggle={onTaskToggle} onDelete={onDeleteTask} />)
       ) : (
         <div className="emptyList" style={styles.div}>
           <img alt="Empty list" src={uncle} style={styles.img} />

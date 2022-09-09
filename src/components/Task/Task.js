@@ -12,7 +12,7 @@ function Task(props) {
   const [task, setTask] = useState(props.task);
   const [checked, setChecked] = useState(!task.done);
   const [timer, setTimer] = useState(false);
-  const { onToggle, onDelete, onEdit, today } = props;
+  const { onToggle, onDelete, onEdit, today } = props; 
 
   const dispatch = useDispatch();
 
