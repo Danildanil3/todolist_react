@@ -120,6 +120,10 @@ margin-right: 0;
     rgba(50, 151, 211, 0.3) 0 0 0 4px;
 }
 
-#name.regected {
+#name.rejected {
+  border: 3px inset var(--red-color);
+}
+
+.selectList .rejected {
   border: 3px inset var(--red-color);
 }

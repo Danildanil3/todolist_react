@@ -1,18 +1,16 @@
 import React, { useEffect, useRef, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import useTasks from "../../hooks/useTasks";
 import "./Form.css";
 import AddBtn from "../ui/AddBtn/Add";
 
-function Form({ taskOnEdit, onSubmit }) {
+function Form({ taskOnEdit }) {
   const form = useRef();
   const nameInp = useRef();
-  const descInp = useRef();
-  const dateInp = useRef();
-  const listInp = useRef();
 
   const [name, setName] = useState("");
   const [description, setDesc] = useState("");
-  const [due_date, setDate] = useState("");
+  const [due_date, setDate] = useState(null);
   const [done, setDone] = useState(false);
   const [list_id, setList] = useState(0);
   const [id, setId] = useState(null);
@@ -22,6 +20,8 @@ function Form({ taskOnEdit, onSubmit }) {
   const handlerToggleForm = (e) => form.current.classList.toggle("animate");
   const hideForm = () => form.current.classList.remove("animate");
   const showForm = () => form.current.classList.add("animate");
+
+  const { createTask } = useTasks(id);
 
   const nameHandler = (event) => {
     event.stopPropagation();
@@ -52,17 +52,16 @@ function Form({ taskOnEdit, onSubmit }) {
     event.preventDefault();
     console.log(list_id);
     if (name.trim() === "") {
-      nameInp.current.classList.add("regected");
+      nameInp.current.classList.add("rejected");
       setTimeout(() => {
-        nameInp.current.classList.remove("regected");
+        nameInp.current.classList.remove("rejected");
       }, 2000);
     } else if (list_id === 0) {
       alert("choose list");
     } else {
-      // onSubmit({ name, description, due_date, list_id, done, id });
-      console.log({ name, description, due_date, list_id, done, id });
+      createTask({ name, description, due_date, list_id: Number(list_id), done });
       setList(0);
-      setDate("")
+      setDate("");
       setDesc("");
       setName("");
       hideForm();
@@ -110,7 +109,6 @@ function Form({ taskOnEdit, onSubmit }) {
             placeholder=" "
             value={description}
             onChange={descHandler}
-            ref={descInp}
           ></input>
           <label htmlFor="form__desc" className="form__label">
             Desctiption
@@ -118,8 +116,8 @@ function Form({ taskOnEdit, onSubmit }) {
         </div>
 
         <div className="form__control" id="form__date">
-          <input type="date" name="due_date" id="date" value={due_date} onChange={dateHandler} ref={dateInp}/>
-          <select name="list_id" className="selectList" onChange={onSelectList} value={list_id} defaultValue={1} ref={listInp}>
+          <input type="date" name="due_date" id="date" value={due_date} onChange={dateHandler} />
+          <select name="list_id" className="selectList" onChange={onSelectList} value={list_id}>
             <option value={0} disabled>
               Choose list
             </option>
