@@ -1,5 +1,6 @@
 import React, { useEffect, useRef, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { selectAllLists } from "../../store/selectors";
 import useTasks from "../../hooks/useTasks";
 import "./Form.css";
 import AddBtn from "../ui/AddBtn/Add";
@@ -7,19 +8,24 @@ import AddBtn from "../ui/AddBtn/Add";
 function Form({ taskOnEdit }) {
   const form = useRef();
   const nameInp = useRef();
+  const selectInp = useRef();
 
   const [name, setName] = useState("");
   const [description, setDesc] = useState("");
-  const [due_date, setDate] = useState(null);
+  const [due_date, setDate] = useState("");
   const [done, setDone] = useState(false);
   const [list_id, setList] = useState(0);
   const [id, setId] = useState(null);
 
-  const lists = useSelector((state) => state.dashboard.lists);
+  const lists = useSelector(selectAllLists);
+  // const dispatch = useDispatch();
 
   const handlerToggleForm = (e) => form.current.classList.toggle("animate");
   const hideForm = () => form.current.classList.remove("animate");
   const showForm = () => form.current.classList.add("animate");
+  const hideNameStroke = () => nameInp.current.classList.remove("rejected");
+  const hideSelectStroke = () => selectInp.current.classList.remove("rejected");
+
 
   const { createTask } = useTasks(id);
 
@@ -38,28 +44,24 @@ function Form({ taskOnEdit }) {
     setDate(event.target.value);
   };
 
-  const doneHandler = (event) => {
-    event.stopPropagation();
-    setDone((prevState) => !prevState);
-  };
-
   const onSelectList = (event) => {
-    console.log(event.target.value);
     setList(event.target.value);
   };
 
   const submitHandler = (event) => {
     event.preventDefault();
-    console.log(list_id);
     if (name.trim() === "") {
       nameInp.current.classList.add("rejected");
-      setTimeout(() => {
-        nameInp.current.classList.remove("rejected");
-      }, 2000);
+      setTimeout(hideNameStroke, 2000);
     } else if (list_id === 0) {
-      alert("choose list");
+      selectInp.current.classList.add("rejected");
+      setTimeout(hideSelectStroke, 2000);
     } else {
-      createTask({ name, description, due_date, list_id: Number(list_id), done });
+      if (due_date === "") {
+        createTask({ name, description, due_date: null, list_id: Number(list_id), done });
+      } else {
+        createTask({ name, description, due_date, list_id: Number(list_id), done });
+      }
       setList(0);
       setDate("");
       setDesc("");
@@ -117,7 +119,7 @@ function Form({ taskOnEdit }) {
 
         <div className="form__control" id="form__date">
           <input type="date" name="due_date" id="date" value={due_date} onChange={dateHandler} />
-          <select name="list_id" className="selectList" onChange={onSelectList} value={list_id}>
+          <select name="list_id" className="selectList" onChange={onSelectList} value={list_id} ref={selectInp}>
             <option value={0} disabled>
               Choose list
             </option>

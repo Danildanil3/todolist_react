@@ -124,6 +124,6 @@ margin-right: 0;
   border: 3px inset var(--red-color);
 }
 
-.selectList .rejected {
+.selectList.rejected {
   border: 3px inset var(--red-color);
 }

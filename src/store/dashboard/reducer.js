@@ -6,6 +6,8 @@ const Actions = {
   ADD_LIST: "ADD_LIST",
   DELETE_LIST: "DELETE_LIST",
   SET_TODAY: "SET_TODAY",
+  OPEN_TASK : "OPEN_TASK",
+  CLOSE_TASK : "CLOSE_TASK"
 };
 
 function openedTasksReducer(state = {}, action) {
@@ -13,8 +15,10 @@ function openedTasksReducer(state = {}, action) {
     case Actions.DASHBOARD_LOADED:
       let lists = action.payload.lists.map((list) => [list.id, Number(list.undone)]);
       return Object.fromEntries(lists);
-    case "SET_TODAY":
-      return 1;
+    case Actions.OPEN_TASK:
+      return {...state, [action.id] : state[action.id] + 1}
+    case Actions.CLOSE_TASK:
+      return {...state, [action.id] : state[action.id] - 1}
     default:
       return state;
   }
@@ -72,6 +76,10 @@ export const deleteListAction = (listid) => (dispatch) => {
     })
   );
 };
+
+export const openTaskAction = (id) => ({ type: Actions.OPEN_TASK, id });
+
+export const closeTaskAction = (id) => ({ type: Actions.CLOSE_TASK, id });
 
 export const setTodayAction = (payload) => ({ type: Actions.SET_TODAY, payload });
 

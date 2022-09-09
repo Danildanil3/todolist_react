@@ -1,6 +1,8 @@
 import React, { useEffect, useRef, useState, useCallback } from "react";
+import { useDispatch } from "react-redux";
 import { Link } from "react-router-dom";
 import "./Task.css";
+import { closeTaskAction, openTaskAction } from "../../store/dashboard/reducer";
 import getFormatedDate from "../../utils/getFormatedDate";
 import capitalizeFstLtr from "../../utils/capitalizeFstLtr";
 import defineTaskClasses from "../../utils/defineTaskClasses";
@@ -11,6 +13,8 @@ function Task(props) {
   const [checked, setChecked] = useState(!task.done);
   const [timer, setTimer] = useState(false);
   const { onToggle, onDelete, onEdit, today } = props;
+
+  const dispatch = useDispatch();
 
   const deleteTask = (e) => onDelete(task);
 
@@ -27,12 +31,17 @@ function Task(props) {
     setChecked(!checked);
     onToggle({ id: task.id, name: task.name, description: task.description, done: checked, due_date: task.due_date });
     setTask((t) => ({ ...t, done: !t.done }));
+    if (task.done !== true) {
+      dispatch(closeTaskAction(task.list_id));
+    } else {
+      dispatch(openTaskAction(task.list_id));
+    }
   }, [checked]);
 
-  useEffect(()=> {
+  useEffect(() => {
     const timeout = setTimeout(hideMenu, 5000);
     return () => clearTimeout(timeout);
-  },[timer])
+  }, [timer]);
 
   return (
     <div className={defineTaskClasses(task.done, task.due_date)}>

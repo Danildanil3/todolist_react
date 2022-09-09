@@ -1,4 +1,5 @@
 import { getListAx, createTaskAx, updateTaskAx, deleteTaskAx } from "../../axios/axios";
+import { openTaskAction } from "../dashboard/reducer";
 
 const baseURL = "http://localhost:3000/api/lists/";
 
@@ -14,7 +15,7 @@ export default function tasksReducer(state = {}, { type, tasks, task, list_id })
     case Actions.TASKS_LOADED:
       return { ...state, [list_id]: tasks };
     case Actions.ADD_TASK:
-      return { ...state, [task[0].list_id]: [...state[task[0].list_id], task] };
+      return { ...state, [task[0].list_id]: [...state[task[0].list_id], task[0]] };
     case Actions.UPDATE_TASK:
       return {
         ...state,
@@ -39,13 +40,14 @@ export const loadTasksAction = (list_id) => (dispatch) => {
   );
 };
 
-export const createTaskAction = (task) => (dispatch) => {
-  createTaskAx(task).then((task) =>
+export const createTaskAction = (oldTask) => (dispatch) => {
+  createTaskAx(oldTask).then((task) => {
+    dispatch(openTaskAction(oldTask.list_id));
     dispatch({
       type: Actions.ADD_TASK,
       task,
-    })
-  );
+    });
+  });
 };
 
 export const updateTaskAction = (oldTask) => (dispatch) => {
