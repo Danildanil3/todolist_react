@@ -96,8 +96,6 @@ export const deleteCounterAction = (id) => ({ type: Actions.DELETE_COUNTER, id }
 
 export const setTodayAction = (payload) => ({ type: Actions.SET_TODAY, payload });
 
-//--------------------------------------------------
-
 export default combineReducers({
   today: todayReducer,
   lists: listsReducer,

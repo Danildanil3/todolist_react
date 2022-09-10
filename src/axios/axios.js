@@ -2,6 +2,8 @@ import axios from "axios";
 
 const baseTURL = "http://localhost:3000/api/tasks";
 const baseLURL = "http://localhost:3000/api/lists";
+const dashboardURL = "http://localhost:3000/api/dashboard";
+const collectionURL = "http://localhost:3000/api/collection/today";
 
 const getTasksAx = async (endPoint) => {
   return await axios
@@ -33,14 +35,14 @@ const deleteTaskAx = async (id) => {
 
 const getDashboardAx = async () => {
   return await axios
-    .get("http://localhost:3000/api/dashboard")
+    .get(dashboardURL)
     .then((res) => res.data)
     .catch((err) => console.error("Axios get dashboard:", err));
 };
 
 const getCollectionAx = async () => {
   return await axios
-    .get("http://localhost:3000/api/collection/today")
+    .get(collectionURL)
     .then((res) => res.data)
     .catch((err) => console.error("Axios get collection today:", err));
 };

@@ -1,18 +1,19 @@
 import React from "react";
 import { NavLink } from "react-router-dom";
 import { useSelector } from "react-redux";
+import Capitalize from "../../../utils/capitalizeFstLtr";
+import { selectOpenedTasks } from "../../../store/selectors";
 import "./List.css";
-import capitalizeFstLtr from "../../../utils/capitalizeFstLtr";
 
 function List({ list, onDelete }) {
-  const undone = useSelector((state) => state.dashboard.openedTasks);
+  const undone = useSelector(selectOpenedTasks);
 
   const handlerDeleteList = (e) => {
     e.preventDefault();
     onDelete(list.id);
   };
 
-  let name = capitalizeFstLtr(list.name);
+  let name = Capitalize(list.name);
   if (name.length > 13) name = name.slice(0, 12) + "...";
 
   return (

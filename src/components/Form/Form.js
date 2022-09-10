@@ -123,7 +123,7 @@ function Form({ taskOnEdit }) {
             placeholder=" "
             value={description}
             onChange={descHandler}
-          ></input>
+          />
           <label htmlFor="form__desc" className="form__label">
             Desctiption
           </label>

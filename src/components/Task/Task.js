@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 import "./Task.css";
 import { closeTaskAction, openTaskAction } from "../../store/dashboard/reducer";
 import getFormatedDate from "../../utils/getFormatedDate";
-import capitalizeFstLtr from "../../utils/capitalizeFstLtr";
+import Capitalize from "../../utils/capitalizeFstLtr";
 import defineTaskClasses from "../../utils/defineTaskClasses";
 
 function Task(props) {
@@ -59,25 +59,21 @@ function Task(props) {
       <div className="task__content">
         <div className="task__title">
           <input type="checkbox" className="input" defaultChecked={task.done} onChange={doneChange} />
-          <p>{capitalizeFstLtr(task.name)}</p>
+          <p>{Capitalize(task.name)}</p>
         </div>
         <div className="task__desc">
           <p>{task.description}</p>
         </div>
-
-        {today === undefined && (
-          <div className="cover" onClick={togglePopup}>
-            <div className="popup">
-              <span className="popupmenu" id="Popup" ref={popup}>
-                <ul>
-                  <li className="delete" onClick={deleteTask}></li>
-                  <li className="edit" onClick={editTask}></li>
-                </ul>
-              </span>
-            </div>
+        <div className="cover" onClick={togglePopup}>
+          <div className="popup">
+            <span className="popupmenu" id="Popup" ref={popup}>
+              <ul>
+                <li className="delete" onClick={deleteTask}></li>
+                <li className="edit" onClick={editTask}></li>
+              </ul>
+            </span>
           </div>
-        )}
-
+        </div>
         {today !== undefined && (
           <Link to={`/todo-list/${task.list.id}?selected=${task.id}`}>
             <div className="listLink">{task.list.name}</div>
