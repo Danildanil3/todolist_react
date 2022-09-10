@@ -9,12 +9,14 @@ import List from "./List/List";
 import "./Dashboard.css";
 
 function Dashboard(props) {
+  const inputRef = useRef();
+
   const todayCount = useSelector(selectTodayCount);
   const allTasks = useSelector(selectAllTasks);
+
   const { lists, createList, deleteList } = useLists();
   const [listName, setName] = useState("");
   const [formDisplay, setDisplay] = useState(false);
-  const inputRef = useRef();
 
   const dispatch = useDispatch();
 
@@ -25,7 +27,7 @@ function Dashboard(props) {
   const showHideForm = () => setDisplay((prevState) => !prevState);
 
   const handlerDeleteList = (id) => {
-    allTasks[id].forEach((task) => deleteTaskAx(task.id));
+    allTasks[id]?.forEach((task) => deleteTaskAx(task.id));
     dispatch(deleteTasksAction(id));
     deleteList(id);
   };

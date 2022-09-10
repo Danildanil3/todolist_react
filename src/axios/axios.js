@@ -38,6 +38,13 @@ const getDashboardAx = async () => {
     .catch((err) => console.error("Axios get dashboard:", err));
 };
 
+const getCollectionAx = async () => {
+  return await axios
+    .get("http://localhost:3000/api/collection/today")
+    .then((res) => res.data)
+    .catch((err) => console.error("Axios get collection today:", err));
+};
+
 const getListAx = async (ep) => {
   return await axios
     .get(ep)
@@ -59,4 +66,14 @@ const deleteListAx = async (id) => {
     .catch((err) => console.error("Axios delete list:", err));
 };
 
-export { getTasksAx, createTaskAx, deleteTaskAx, updateTaskAx, getDashboardAx, getListAx, createListAx, deleteListAx };
+export {
+  getTasksAx,
+  createTaskAx,
+  deleteTaskAx,
+  updateTaskAx,
+  getDashboardAx,
+  getCollectionAx,
+  getListAx,
+  createListAx,
+  deleteListAx,
+};

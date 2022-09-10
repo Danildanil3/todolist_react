@@ -4,19 +4,14 @@ import { useSelector } from "react-redux";
 import "./List.css";
 import capitalizeFstLtr from "../../../utils/capitalizeFstLtr";
 
-function List({ list, onClick, onDelete }) {
+function List({ list, onDelete }) {
   const undone = useSelector((state) => state.dashboard.openedTasks);
-
-  const handlerChooseItem = (e) => {
-    e.preventDefault();
-    onClick(list.id);
-  };
 
   const handlerDeleteList = (e) => {
     e.preventDefault();
     onDelete(list.id);
   };
-  
+
   let name = capitalizeFstLtr(list.name);
   if (name.length > 13) name = name.slice(0, 12) + "...";
 

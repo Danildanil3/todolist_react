@@ -1,15 +1,22 @@
 import React, { useEffect } from "react";
-import { useParams, useNavigate } from "react-router-dom";
+import { useParams, useNavigate, useSearchParams } from "react-router-dom";
 import Task from "../components/Task/Task";
 import uncle from "../assets/uncle.png";
 import useTasks from "../hooks/useTasks";
 
 function List() {
   let { id } = useParams();
+  const [searchParams, setSearchParams] = useSearchParams();
+  const selectedTaskId = searchParams.get("selected");
   const navigate = useNavigate();
 
   id = parseInt(id);
   if (isNaN(id)) navigate("*");
+
+  if (selectedTaskId !== null) {
+    const selectedTask = document.querySelector(`[data-id="${selectedTaskId}"]`);
+    if (selectedTask) selectedTask.classList.add("selected");
+  }
 
   const { tasks, getTasks, updateTask, deleteTask } = useTasks(id);
 
@@ -50,7 +57,7 @@ function List() {
       ) : (
         <div className="emptyList" style={styles.div}>
           <img alt="Empty list" src={uncle} style={styles.img} />
-          <h1 style={styles.text}>Hurry up ! Сreate a task for yourself</h1>
+          <h1 style={styles.text}>Create tasks ! Make yourself useful</h1>
         </div>
       )}
     </>

@@ -1,6 +1,7 @@
 import { useDispatch, useSelector } from "react-redux";
 import { loadTasksAction, deleteTaskAction, updateTaskAction, createTaskAction } from "../store/tasks/reducer";
-import { selectFilterOut, selectAllTasks } from "../store/selectors";
+import { loadCollectionAction } from "../store/today/reducer";
+import { selectFilterOut, selectAllTasks, selectTodayTasks } from "../store/selectors";
 import { createSelector } from "reselect";
 
 function useTasks(id) {
@@ -15,6 +16,11 @@ function useTasks(id) {
   });
 
   const tasks = useSelector(filtedTasks);
+  const todayTasks = useSelector(selectTodayTasks);
+
+  const getCollection = () => {
+    dispatch(loadCollectionAction);
+  };
 
   const getTasks = () => {
     dispatch(loadTasksAction(id));
@@ -32,7 +38,7 @@ function useTasks(id) {
     dispatch(updateTaskAction(task));
   };
 
-  return { tasks, getTasks, createTask, updateTask, deleteTask };
+  return { tasks, todayTasks, getCollection, getTasks, createTask, updateTask, deleteTask };
 }
 
 export default useTasks;

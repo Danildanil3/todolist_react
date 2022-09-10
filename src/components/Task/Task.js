@@ -51,7 +51,7 @@ function Task(props) {
   }, [timer]);
 
   return (
-    <div className={defineTaskClasses(task.done, task.due_date)}>
+    <div className={defineTaskClasses(task.done, task.due_date)} data-id={task.id}>
       <div className="data">
         <i className="calendar"></i>
         <p>{getFormatedDate(task.due_date)}</p>
@@ -64,18 +64,22 @@ function Task(props) {
         <div className="task__desc">
           <p>{task.description}</p>
         </div>
-        <div className="cover" onClick={togglePopup}>
-          <div className="popup">
-            <span className="popupmenu" id="Popup" ref={popup}>
-              <ul>
-                <li className="delete" onClick={deleteTask}></li>
-                <li className="edit" onClick={editTask}></li>
-              </ul>
-            </span>
+
+        {today === undefined && (
+          <div className="cover" onClick={togglePopup}>
+            <div className="popup">
+              <span className="popupmenu" id="Popup" ref={popup}>
+                <ul>
+                  <li className="delete" onClick={deleteTask}></li>
+                  <li className="edit" onClick={editTask}></li>
+                </ul>
+              </span>
+            </div>
           </div>
-        </div>
+        )}
+
         {today !== undefined && (
-          <Link to={`/todo-list/${task.list_id}`}>
+          <Link to={`/todo-list/${task.list.id}?selected=${task.id}`}>
             <div className="listLink">{task.list.name}</div>
           </Link>
         )}

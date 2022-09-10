@@ -9,6 +9,7 @@ function Form({ taskOnEdit }) {
   const form = useRef();
   const nameInp = useRef();
   const selectInp = useRef();
+  const addBtn = document.querySelector(".add_task_btn");
 
   const [name, setName] = useState("");
   const [description, setDesc] = useState("");
@@ -20,13 +21,25 @@ function Form({ taskOnEdit }) {
   const lists = useSelector(selectAllLists);
   // const dispatch = useDispatch();
 
-  const handlerToggleForm = (e) => form.current.classList.toggle("animate");
-  const hideForm = () => form.current.classList.remove("animate");
-  const showForm = () => form.current.classList.add("animate");
+  const { createTask } = useTasks(id);
+
+  const handlerToggleForm = (e) => {
+    form.current.classList.toggle("animate");
+    addBtn.classList.toggle("animate");
+  };
+
+  const hideForm = () => {
+    form.current.classList.remove("animate");
+    addBtn.classList.remove("animate");
+  };
+
+  const showForm = () => {
+    form.current.classList.add("animate");
+    addBtn.classList.add("animate");
+  };
+
   const hideNameStroke = () => nameInp.current.classList.remove("rejected");
   const hideSelectStroke = () => selectInp.current.classList.remove("rejected");
-
-  const { createTask } = useTasks(id);
 
   const nameHandler = (event) => {
     event.stopPropagation();
