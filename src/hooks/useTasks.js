@@ -1,24 +1,19 @@
 import { useDispatch, useSelector } from "react-redux";
 import { loadTasksAction, deleteTaskAction, updateTaskAction, createTaskAction } from "../store/tasks/reducer";
-import {selectFilterOut, selectAllTasks} from "../store/selectors"
+import { selectFilterOut, selectAllTasks } from "../store/selectors";
 import { createSelector } from "reselect";
-
 
 function useTasks(id) {
   const dispatch = useDispatch();
 
-  const filtedTasks = createSelector(
-    [selectAllTasks, selectFilterOut],
-    (allTasks, filter) => {
-      console.log("ALL",allTasks);
-      if (filter) {
-        return allTasks[id]?.filter(task => task.done !== true)
-      } else {
-        return allTasks[id]
-      }
+  const filtedTasks = createSelector([selectAllTasks, selectFilterOut], (allTasks, filter) => {
+    if (filter) {
+      return allTasks[id]?.filter((task) => task.done !== true);
+    } else {
+      return allTasks[id];
     }
-  )
-  
+  });
+
   const tasks = useSelector(filtedTasks);
 
   const getTasks = () => {

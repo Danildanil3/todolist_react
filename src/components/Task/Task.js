@@ -12,7 +12,7 @@ function Task(props) {
   const [task, setTask] = useState(props.task);
   const [checked, setChecked] = useState(!task.done);
   const [timer, setTimer] = useState(false);
-  const { onToggle, onDelete, onEdit, today } = props; 
+  const { onToggle, onDelete, onEdit, today } = props;
 
   const dispatch = useDispatch();
 
@@ -29,7 +29,14 @@ function Task(props) {
 
   const doneChange = useCallback(() => {
     setChecked(!checked);
-    onToggle({ id: task.id, name: task.name, description: task.description, done: checked, due_date: task.due_date });
+    onToggle({
+      id: task.id,
+      name: task.name,
+      description: task.description,
+      done: checked,
+      due_date: task.due_date,
+      list_id: task.list_id,
+    });
     setTask((t) => ({ ...t, done: !t.done }));
     if (task.done !== true) {
       dispatch(closeTaskAction(task.list_id));

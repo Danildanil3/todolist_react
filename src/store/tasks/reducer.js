@@ -19,7 +19,7 @@ export default function tasksReducer(state = {}, { type, tasks, task, list_id })
     case Actions.UPDATE_TASK:
       return {
         ...state,
-        [task.list_id]: [...state.task.listId.map((t) => (t.id === task.id ? { ...t, ...task } : t))],
+        [task.list_id]: [...state[task.list_id].map((t) => (t.id === task.id ? { ...t, ...task } : t))],
       };
     case Actions.DELETE_TASK:
       return { ...state, [task.list_id]: [...state[task.list_id].filter((t) => t.id !== task.id)] };
@@ -50,8 +50,8 @@ export const createTaskAction = (oldTask) => (dispatch) => {
   });
 };
 
-export const updateTaskAction = (oldTask) => (dispatch) => {
-  updateTaskAx(oldTask.id, oldTask).then((task) =>
+export const updateTaskAction = (task) => (dispatch) => {
+  updateTaskAx(task.id, task).then((_) =>
     dispatch({
       type: Actions.UPDATE_TASK,
       task,
