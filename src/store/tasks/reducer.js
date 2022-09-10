@@ -5,6 +5,7 @@ const baseURL = "http://localhost:3000/api/lists/";
 
 const Actions = {
   TASKS_LOADED: "TASKS_LOADED",
+  DELETE_TASKS: "DELETE_TASKS",
   ADD_TASK: "ADD_TASK",
   UPDATE_TASK: "UPDATE_TASK",
   DELETE_TASK: "DELETE_TASK",
@@ -14,6 +15,9 @@ export default function tasksReducer(state = {}, { type, tasks, task, list_id })
   switch (type) {
     case Actions.TASKS_LOADED:
       return { ...state, [list_id]: tasks };
+    case Actions.DELETE_TASKS:
+      const { [list_id]: remove, ...rest } = state;
+      return rest;
     case Actions.ADD_TASK:
       return { ...state, [task[0].list_id]: [...state[task[0].list_id], task[0]] };
     case Actions.UPDATE_TASK:
@@ -39,6 +43,8 @@ export const loadTasksAction = (list_id) => (dispatch) => {
     })
   );
 };
+
+export const deleteTasksAction = (list_id) => ({ type: Actions.DELETE_TASKS, list_id });
 
 export const createTaskAction = (oldTask) => (dispatch) => {
   createTaskAx(oldTask).then((task) => {

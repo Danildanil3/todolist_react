@@ -26,7 +26,6 @@ function Form({ taskOnEdit }) {
   const hideNameStroke = () => nameInp.current.classList.remove("rejected");
   const hideSelectStroke = () => selectInp.current.classList.remove("rejected");
 
-
   const { createTask } = useTasks(id);
 
   const nameHandler = (event) => {

@@ -5,7 +5,7 @@ import empty from "../assets/empty.svg";
 
 function Today() {
   const baseURL = "http://localhost:3000/api/collection/today";
-  const { tasks, getTasks, updateTask, deleteTask } = useTasks();
+  const { tasks, updateTask, deleteTask } = useTasks();
 
   const styles = {
     div: {
@@ -25,9 +25,9 @@ function Today() {
     },
   };
 
-  useEffect(() => {
-    getTasks(baseURL);
-  }, []);
+  // useEffect(() => {
+  //   getTasks(baseURL);
+  // }, []);
 
   const onTaskToggle = (task) => updateTask(task);
   const onDeleteTask = (id) => deleteTask(id);
@@ -38,7 +38,7 @@ function Today() {
         <Task key={t.id} task={t} onToggle={onTaskToggle} onDelete={onDeleteTask} today />
       ))}
 
-      {tasks.length === 0 && (
+      {tasks?.length === 0 && (
         <div style={styles.div}>
           <img alt="No tasks" src={empty} style={styles.img} />
           <h1 style={styles.text}>No tasks for today</h1>

@@ -1,6 +1,5 @@
 import { getDashboardAx, createListAx, deleteListAx } from "../../axios/axios";
 import { combineReducers } from "redux";
-import { act } from "react-dom/test-utils";
 
 const Actions = {
   DASHBOARD_LOADED: "DASHBOARD_LOADED",

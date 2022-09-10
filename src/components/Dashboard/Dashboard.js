@@ -1,16 +1,22 @@
 import React, { useEffect, useRef, useState } from "react";
-import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
+import { useSelector, useDispatch } from "react-redux";
+import { selectTodayCount, selectAllTasks } from "../../store/selectors";
+import { deleteTaskAx } from "../../axios/axios";
+import { deleteTasksAction } from "../../store/tasks/reducer";
 import useLists from "../../hooks/useLists";
-import "./Dashboard.css";
 import List from "./List/List";
+import "./Dashboard.css";
 
 function Dashboard(props) {
-  const count = useSelector(store => store.dashboard.today)
+  const todayCount = useSelector(selectTodayCount);
+  const allTasks = useSelector(selectAllTasks);
   const { lists, createList, deleteList } = useLists();
   const [listName, setName] = useState("");
   const [formDisplay, setDisplay] = useState(false);
   const inputRef = useRef();
+
+  const dispatch = useDispatch();
 
   const formStyle = {
     display: formDisplay ? "block" : "none",
@@ -18,7 +24,11 @@ function Dashboard(props) {
 
   const showHideForm = () => setDisplay((prevState) => !prevState);
 
-  const handlerDeleteList = (id) => deleteList(id);
+  const handlerDeleteList = (id) => {
+    allTasks[id].forEach((task) => deleteTaskAx(task.id));
+    dispatch(deleteTasksAction(id));
+    deleteList(id);
+  };
 
   const create = (e) => {
     e.preventDefault();
@@ -58,7 +68,7 @@ function Dashboard(props) {
           <button type="submit">Push</button>
         </form>
       </div>
-      <Link to="today" className="todayLink" data-count={count}>
+      <Link to="today" className="todayLink" data-count={todayCount}>
         Today
       </Link>
       <ul className="menu">
