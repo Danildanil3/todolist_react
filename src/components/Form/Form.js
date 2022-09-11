@@ -1,10 +1,11 @@
 import React, { useEffect, useRef, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { closeTaskAction } from "../../store/dashboard/reducer";
 import { selectAllLists, selectTaskOnEdit } from "../../store/selectors";
 import { getFormatedDate } from "../../utils";
 import useTasks from "../../hooks/useTasks";
-import "./Form.css";
 import AddBtn from "../ui/AddBtn/Add";
+import "./Form.css";
 
 function Form(props) {
   const form = useRef();
@@ -20,10 +21,12 @@ function Form(props) {
   const [id, setId] = useState(null);
 
   const [onEdit, setStage] = useState(false);
-  const [prevList, setPrevList] = useState(null);
+  const [prevListId, setPrevList] = useState(null);
 
   const lists = useSelector(selectAllLists);
   const taskOnEdit = useSelector(selectTaskOnEdit);
+
+  const dispatch = useDispatch();
 
   const { createTask, deleteTask, updateTask } = useTasks(id);
 
@@ -66,7 +69,6 @@ function Form(props) {
 
   const submitHandler = (event) => {
     event.preventDefault();
-    console.log(onEdit);
     if (name.trim() === "") {
       nameInp.current.classList.add("rejected");
       setTimeout(hideNameStroke, 2000);
@@ -74,14 +76,12 @@ function Form(props) {
       selectInp.current.classList.add("rejected");
       setTimeout(hideSelectStroke, 2000);
     } else if (onEdit) {
-      console.log("Enter");
       setStage(false);
-      if (prevList !== list_id) {
-        console.log("Diff list");
-        deleteTask({ id, list_id: prevList });
+      if (prevListId !== list_id) {
+        deleteTask({ id, list_id: prevListId });
         createTask({ id, name, description, due_date, list_id: Number(list_id), done });
+        if (done === false) dispatch(closeTaskAction(prevListId));
       } else {
-        console.log("Same list");
         updateTask({ id, name, description, due_date, list_id: Number(list_id), done });
       }
     } else {
