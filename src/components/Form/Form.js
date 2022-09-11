@@ -1,11 +1,12 @@
 import React, { useEffect, useRef, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { selectAllLists } from "../../store/selectors";
+import { selectAllLists, selectTaskOnEdit } from "../../store/selectors";
+import { getFormatedDate } from "../../utils";
 import useTasks from "../../hooks/useTasks";
 import "./Form.css";
 import AddBtn from "../ui/AddBtn/Add";
 
-function Form({ taskOnEdit }) {
+function Form(props) {
   const form = useRef();
   const nameInp = useRef();
   const selectInp = useRef();
@@ -18,10 +19,13 @@ function Form({ taskOnEdit }) {
   const [list_id, setList] = useState(0);
   const [id, setId] = useState(null);
 
-  const lists = useSelector(selectAllLists);
-  // const dispatch = useDispatch();
+  const [onEdit, setStage] = useState(false);
+  const [prevList, setPrevList] = useState(null);
 
-  const { createTask } = useTasks(id);
+  const lists = useSelector(selectAllLists);
+  const taskOnEdit = useSelector(selectTaskOnEdit);
+
+  const { createTask, deleteTask, updateTask } = useTasks(id);
 
   const handlerToggleForm = (e) => {
     form.current.classList.toggle("animate");
@@ -62,12 +66,24 @@ function Form({ taskOnEdit }) {
 
   const submitHandler = (event) => {
     event.preventDefault();
+    console.log(onEdit);
     if (name.trim() === "") {
       nameInp.current.classList.add("rejected");
       setTimeout(hideNameStroke, 2000);
     } else if (list_id === 0) {
       selectInp.current.classList.add("rejected");
       setTimeout(hideSelectStroke, 2000);
+    } else if (onEdit) {
+      console.log("Enter");
+      setStage(false);
+      if (prevList !== list_id) {
+        console.log("Diff list");
+        deleteTask({ id, list_id: prevList });
+        createTask({ id, name, description, due_date, list_id: Number(list_id), done });
+      } else {
+        console.log("Same list");
+        updateTask({ id, name, description, due_date, list_id: Number(list_id), done });
+      }
     } else {
       if (due_date === "") {
         createTask({ name, description, due_date: null, list_id: Number(list_id), done });
@@ -84,11 +100,18 @@ function Form({ taskOnEdit }) {
 
   useEffect(() => {
     if (taskOnEdit) {
+      setStage(true);
+      setPrevList(taskOnEdit.list_id);
+      if (taskOnEdit.due_date === null) {
+        setDate("");
+      } else {
+        setDate(getFormatedDate(taskOnEdit.due_date, "-"));
+      }
       setName(taskOnEdit.name);
       setDesc(taskOnEdit.description);
       setDone(taskOnEdit.done);
-      setDate(taskOnEdit.due_date);
       setId(taskOnEdit.id);
+      setList(taskOnEdit.list_id);
       showForm();
     }
   }, [taskOnEdit]);

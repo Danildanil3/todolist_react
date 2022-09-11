@@ -3,22 +3,16 @@ import { useDispatch } from "react-redux";
 import { Link } from "react-router-dom";
 import "./Task.css";
 import { closeTaskAction, openTaskAction } from "../../store/dashboard/reducer";
-import getFormatedDate from "../../utils/getFormatedDate";
-import Capitalize from "../../utils/capitalizeFstLtr";
-import defineTaskClasses from "../../utils/defineTaskClasses";
+import { setEditAction } from "../../store/edit/reducer";
+import { Capitalize, getFormatedDate, defineTaskClasses } from "../../utils";
 
-function Task(props) {
+function Task({ onToggle, onDelete, today, obj }) {
   const popup = useRef();
-  const [task, setTask] = useState(props.task);
+  const [task, setTask] = useState(obj);
   const [checked, setChecked] = useState(!task.done);
   const [timer, setTimer] = useState(false);
-  const { onToggle, onDelete, onEdit, today } = props;
 
   const dispatch = useDispatch();
-
-  const deleteTask = (e) => onDelete(task);
-
-  const editTask = (e) => onEdit(task);
 
   const hideMenu = () => popup.current.classList.remove("show");
 
@@ -27,16 +21,15 @@ function Task(props) {
     setTimer(!timer);
   };
 
+  const deleteTask = (e) => onDelete(task);
+
+  const editTask = (e) => {
+    dispatch(setEditAction(task));
+  };
+
   const doneChange = useCallback(() => {
     setChecked(!checked);
-    onToggle({
-      id: task.id,
-      name: task.name,
-      description: task.description,
-      done: checked,
-      due_date: task.due_date,
-      list_id: task.list_id,
-    });
+    onToggle({ ...task, done: checked });
     setTask((t) => ({ ...t, done: !t.done }));
     if (task.done !== true) {
       dispatch(closeTaskAction(task.list_id));

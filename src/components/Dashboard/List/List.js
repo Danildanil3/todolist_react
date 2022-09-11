@@ -1,7 +1,7 @@
 import React from "react";
 import { NavLink } from "react-router-dom";
 import { useSelector } from "react-redux";
-import Capitalize from "../../../utils/capitalizeFstLtr";
+import { Capitalize } from "../../../utils";
 import { selectOpenedTasks } from "../../../store/selectors";
 import "./List.css";
 

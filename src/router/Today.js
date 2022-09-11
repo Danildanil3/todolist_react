@@ -34,7 +34,7 @@ function Today() {
   return (
     <>
       {todayTasks?.map((t) => (
-        <Task key={t.id} task={t} onToggle={onTaskToggle} onDelete={onDeleteTask} today />
+        <Task key={t.id} obj={t} onToggle={onTaskToggle} onDelete={onDeleteTask} today />
       ))}
 
       {todayTasks?.length === 0 && (

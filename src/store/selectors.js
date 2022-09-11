@@ -4,3 +4,4 @@ export const selectTodayCount = (store) => store.dashboard.today;
 export const selectOpenedTasks = (state) => state.dashboard.openedTasks;
 export const selectFilterOut = (state) => state.filterOut;
 export const selectTodayTasks = (state) => state.todayTasks;
+export const selectTaskOnEdit = (state) => state.onEdit;

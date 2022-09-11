@@ -19,6 +19,7 @@ export default function tasksReducer(state = {}, { type, tasks, task, list_id })
       const { [list_id]: remove, ...rest } = state;
       return rest;
     case Actions.ADD_TASK:
+      console.log(task);
       return { ...state, [task[0].list_id]: [...state[task[0].list_id], task[0]] };
     case Actions.UPDATE_TASK:
       return {

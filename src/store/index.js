@@ -5,12 +5,14 @@ import dashboardReducer from "./dashboard/reducer";
 import tasksReducer from "./tasks/reducer";
 import filterReducer from "./filter/reducer";
 import todayTaskReducer from "./today/reducer";
+import editReducer from "./edit/reducer";
 
 const rootReducer = combineReducers({
   dashboard: dashboardReducer,
   tasks: tasksReducer,
   filterOut: filterReducer,
   todayTasks: todayTaskReducer,
+  onEdit: editReducer,
 });
 
 const enhancers = [
