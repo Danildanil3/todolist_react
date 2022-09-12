@@ -77,6 +77,7 @@ function Form(props) {
       setTimeout(hideSelectStroke, 2000);
     } else if (onEdit) {
       setStage(false);
+      hideForm();
       if (prevListId !== list_id) {
         deleteTask({ id, list_id: prevListId });
         createTask({ id, name, description, due_date, list_id: Number(list_id), done });
@@ -90,12 +91,11 @@ function Form(props) {
       } else {
         createTask({ name, description, due_date, list_id: Number(list_id), done });
       }
-      setList(0);
-      setDate("");
-      setDesc("");
-      setName("");
-      hideForm();
     }
+    setList(0);
+    setDate("");
+    setDesc("");
+    setName("");
   };
 
   useEffect(() => {

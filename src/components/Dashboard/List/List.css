@@ -2,8 +2,8 @@
   position: relative;
   margin-bottom: 4%;
   border-radius: 4px;
-  cursor: pointer;
   background-color: rgba(217, 217, 217, 0.3);
+  cursor: pointer;
 }
 
 .menu .menu_item:last-child {
@@ -51,7 +51,8 @@
   width: 100%;
   font-size: 1.3rem;
   font-weight: 600;
-  font-family: "Trebuchet MS", sans-serif;
+  /* font-family: "Trebuchet MS", sans-serif; */
+  font-family: Consolas;
   letter-spacing: 1px;
   line-height: 1.4rem;
   cursor: pointer;

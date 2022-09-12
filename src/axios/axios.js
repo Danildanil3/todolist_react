@@ -19,9 +19,10 @@ const createTaskAx = async (task) => {
     .catch((err) => console.error("Axios create task:", err));
 };
 
-const updateTaskAx = async (id, body) => {
+const updateTaskAx = async (taskId, body) => {
+  const { id, name, description, due_date, list_id, done } = body;
   await axios
-    .patch(`${baseTURL}/${id}`, body)
+    .patch(`${baseTURL}/${taskId}`, { id, name, description, due_date, list_id, done })
     .then((res) => res.data)
     .catch((err) => console.error("Axios update task:", err));
 };

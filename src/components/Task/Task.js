@@ -1,10 +1,10 @@
 import React, { useEffect, useRef, useState, useCallback } from "react";
 import { useDispatch } from "react-redux";
 import { Link } from "react-router-dom";
-import "./Task.css";
 import { closeTaskAction, openTaskAction } from "../../store/dashboard/reducer";
 import { setEditAction } from "../../store/edit/reducer";
 import { Capitalize, getFormatedDate, defineTaskClasses } from "../../utils";
+import "./Task.css";
 
 function Task({ onToggle, onDelete, today, obj }) {
   const popup = useRef();
@@ -21,7 +21,10 @@ function Task({ onToggle, onDelete, today, obj }) {
     setTimer(!timer);
   };
 
-  const deleteTask = (e) => onDelete(task);
+  const deleteTask = (e) => {
+    if (!task.done) dispatch(closeTaskAction(task.list_id));
+    onDelete(task);
+  };
 
   const editTask = (e) => {
     dispatch(setEditAction(task));

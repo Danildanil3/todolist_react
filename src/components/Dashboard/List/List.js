@@ -14,10 +14,10 @@ function List({ list, onDelete }) {
   };
 
   let name = Capitalize(list.name);
-  if (name.length > 13) name = name.slice(0, 12) + "...";
+  if (name.length > 15) name = name.slice(0, 14) + "...";
 
   return (
-    <li className="menu_item" key={list.id}>
+    <li className="menu_item" key={list.id} title={list.name}>
       <NavLink to={`/todo-list/${list.id}`}>
         {name}({undone[list.id]})
       </NavLink>
