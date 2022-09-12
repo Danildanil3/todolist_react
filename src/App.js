@@ -10,10 +10,10 @@ function App() {
     <div className="App">
       <Dashboard />
       <Form />
+      <Filter />
       <Content>
         <Outlet />
       </Content>
-      <Filter/>
     </div>
   );
 }
